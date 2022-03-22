@@ -23,7 +23,7 @@ class Restauration
     private $dateRestauration;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=30, name="typerepas")
      */
     private $typeRepas;
 
