@@ -48,7 +48,8 @@ class Hotel
     private $tel;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=100)
+     * @Assert\Email
      */
     private $mail;
 
