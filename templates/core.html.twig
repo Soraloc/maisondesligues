@@ -20,9 +20,7 @@
     
     <body>
         {% include "elements/navbar.html.twig" %}
-        {% include "elements/footer.html.twig" %}
-        {% block navbar %}{% endblock %}
         {% block content %}{% endblock %}
-        {% block footer %}{% endblock %}
+        {% include "elements/footer.html.twig" %}
     </body>
 </html>
