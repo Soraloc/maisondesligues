@@ -33,7 +33,7 @@ class Hotel
     private $adresse2;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=5, options={"fixed":true})
      */
     private $cp;
 
