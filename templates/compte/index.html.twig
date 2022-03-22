@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte index{% endblock %}
+
+{% block body %}
+    <h1>Compte index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Identifiant</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for compte in comptes %}
+            <tr>
+                <td>{{ compte.id }}</td>
+                <td>{{ compte.identifiant }}</td>
+                <td>{{ compte.roles ? compte.roles|json_encode : '' }}</td>
+                <td>{{ compte.password }}</td>
+                <td>
+                    <a href="{{ path('app_compte_show', {'id': compte.id}) }}">show</a>
+                    <a href="{{ path('app_compte_edit', {'id': compte.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_compte_new') }}">Create new</a>
+{% endblock %}

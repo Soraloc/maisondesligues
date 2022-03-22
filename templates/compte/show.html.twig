@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte{% endblock %}
+
+{% block body %}
+    <h1>Compte</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ compte.id }}</td>
+            </tr>
+            <tr>
+                <th>Identifiant</th>
+                <td>{{ compte.identifiant }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ compte.roles ? compte.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ compte.password }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_compte_index') }}">back to list</a>
+
+    <a href="{{ path('app_compte_edit', {'id': compte.id}) }}">edit</a>
+
+    {{ include('compte/_delete_form.html.twig') }}
+{% endblock %}
