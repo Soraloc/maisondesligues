@@ -1,5 +1,3 @@
-{% extends "elements/navbarTest.html.twig" %}
-{% extends "elements/footer.html.twig" %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,6 +19,8 @@
     </head>
     
     <body>
+        {% include "elements/navbar.html.twig" %}
+        {% include "elements/footer.html.twig" %}
         {% block navbar %}{% endblock %}
         {% block content %}{% endblock %}
         {% block footer %}{% endblock %}
