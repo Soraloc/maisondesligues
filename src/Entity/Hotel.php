@@ -43,7 +43,7 @@ class Hotel
     private $ville;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=14, options={"fixed":true})
      */
     private $tel;
 
