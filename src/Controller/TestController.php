@@ -6,14 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AccueilController extends AbstractController
+class TestController extends AbstractController
 {
     /**
-     * @Route("/accueil", name="accueil")
-     * @Route("/")
+     * @Route("/test", name="test")
      */
     public function accueil(): Response
     {
-        return $this->render('vue/accueil.html.twig');
+        return $this->render('vue/test.html.twig');
     }
 }
