@@ -83,7 +83,7 @@ class CreationController extends AbstractController
             return $this->redirectToRoute('creer_confirmation');
         }
         return $this->render('vues/creation/creerTheme.html.twig', [
-            'creerThemeForm' => $form->createView(),
+            'themeForm' => $form->createView(),
         ]);
     }
     
@@ -109,9 +109,10 @@ class CreationController extends AbstractController
     /**
      * @Route("/confirmation", name="_confirmation")
      */
-    public function creationVacation(Request $request, \Doctrine\ORM\EntityManagerInterface $manager): Response
+    public function confirmation(Request $request, \Doctrine\ORM\EntityManagerInterface $manager): Response
     {
         return $this->render('vues/creation/confirmation.html.twig', [
             'confirmation' => $form->createView(),
+        ]);
     }
 }

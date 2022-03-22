@@ -118,18 +118,18 @@ class Atelier
         return $this->lesThemes;
     }
 
-    public function addLesTheme(Theme $lesTheme): self
+    public function addLesThemes(Theme $lesThemes): self
     {
-        if (!$this->lesThemes->contains($lesTheme)) {
-            $this->lesThemes[] = $lesTheme;
+        if (!$this->lesThemes->contains($lesThemes)) {
+            $this->lesThemes[] = $lesThemes;
         }
 
         return $this;
     }
 
-    public function removeLesTheme(Theme $lesTheme): self
+    public function removeLesThemes(Theme $lesThemes): self
     {
-        $this->lesThemes->removeElement($lesTheme);
+        $this->lesThemes->removeElement($lesThemes);
 
         return $this;
     }

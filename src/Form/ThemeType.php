@@ -13,8 +13,7 @@ class ThemeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('libelle', )
-            ->add('lesAteliers')
+            ->add('libelle', Type\TextType::class)
         ;
     }
 

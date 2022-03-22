@@ -35,7 +35,7 @@ class Club
     private $adresse2;
 
     /**
-     * @ORM\Column(type="string", length=5, options={"fixed":true})     
+     * @ORM\Column(type="string", length=5, options={"fixed":true})
      */
     private $cp;
 
