@@ -18,7 +18,7 @@ class Restauration
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", name="daterestauration")
      */
     private $dateRestauration;
 
