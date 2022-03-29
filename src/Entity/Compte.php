@@ -4,10 +4,12 @@ namespace App\Entity;
 
 use App\Repository\CompteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=CompteRepository::class)
+ * @UniqueEntity(fields={"identifiant"}, message="There is already an account with this identifiant")
  */
 class Compte implements UserInterface
 {
@@ -19,7 +21,7 @@ class Compte implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=70, unique=true)
      */
     private $identifiant;
 
@@ -30,7 +32,7 @@ class Compte implements UserInterface
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=false)
      */
     private $password;
 
