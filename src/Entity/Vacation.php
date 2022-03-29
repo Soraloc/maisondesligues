@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\VacationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=VacationRepository::class)
@@ -19,11 +20,17 @@ class Vacation
 
     /**
      * @ORM\Column(type="datetime", name="dateheuredebut")
+     * @Assert\GreaterThanOrEqual("today")(
+     *      message="La date doit être d'au moins aujourd'hui"
+     *      )
      */
     private $dateHeureDebut;
 
     /**
      * @ORM\Column(type="datetime", name="dateheurefin")
+     * @Assert\GreaterThanOrEqual("today")(
+     *      message="La date doit être d'au moins aujourd'hui"
+     *      )
      */
     private $dateHeureFin;
 

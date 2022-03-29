@@ -2,11 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\Theme;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type as Type;
+
+use App\Entity\Theme;
+use App\Entity\Atelier;
+
+use App\Repository\AtelierRepository;
 
 class ThemeType extends AbstractType
 {

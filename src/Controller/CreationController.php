@@ -7,15 +7,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-use App\Entity\ChoixCreationEntity;
 use App\Entity\Atelier;
 use App\Entity\Theme;
 use App\Entity\Vacation;
 
-use App\Form\ChoixCreationType;
 use App\Form\AtelierType;
 use App\Form\ThemeType;
 use App\Form\VacationType;
+
+use App\Repository\ThemeRepository;
+use App\Repository\AtelierRepository;
 
 /**
  * @Route("/creer", name="creer")
@@ -52,8 +53,9 @@ class CreationController extends AbstractController
     /**
      * @Route("/atelier", name="_atelier")
      */
-    public function creationAtelier(Request $request, \Doctrine\ORM\EntityManagerInterface $manager): Response
+    public function creationAtelier(Request $request, \Doctrine\ORM\EntityManagerInterface $manager, ThemeRepository $repo): Response
     {
+        $themes = $repo->findAll();
         $atelier = new Atelier;
         $form = $this->createForm(AtelierType::class, $atelier);
         $form->handleRequest($request);
@@ -64,6 +66,7 @@ class CreationController extends AbstractController
             return $this->redirectToRoute('creer_confirmation');
         }
         return $this->render('vues/creation/creerAtelier.html.twig', [
+            'themes' => $themes,
             'atelierForm' => $form->createView(),
         ]);
     }
@@ -90,8 +93,9 @@ class CreationController extends AbstractController
     /**
      * @Route("/vacation", name="_vacation")
      */
-    public function creationVacation(Request $request, \Doctrine\ORM\EntityManagerInterface $manager): Response
+    public function creationVacation(Request $request, \Doctrine\ORM\EntityManagerInterface $manager, AtelierRepository $repo): Response
     {
+        $ateliers = $repo->findAll();
         $vacation = new Vacation;
         $form = $this->createForm(VacationType::class, $vacation);
         $form->handleRequest($request);
@@ -102,7 +106,8 @@ class CreationController extends AbstractController
             return $this->redirectToRoute('creer_confirmation');
         }
         return $this->render('vues/creation/creerVacation.html.twig', [
-            'creerVacationForm' => $form->createView(),
+            'ateliers' => $ateliers,
+            'vacationForm' => $form->createView(),
         ]);
     }
     

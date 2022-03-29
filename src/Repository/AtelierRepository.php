@@ -44,6 +44,12 @@ class AtelierRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+    
+    public function getAteliersTrieSurNom()
+    {
+        return $this->createQueryBuilder('a')
+                ->orderBy('a.libelle', 'ASC');
+    }
 
     // /**
     //  * @return Atelier[] Returns an array of Atelier objects

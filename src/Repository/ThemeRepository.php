@@ -44,6 +44,12 @@ class ThemeRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+    
+    public function getThemesTrieSurNom()
+    {
+        return $this->createQueryBuilder('t')
+                ->orderBy('t.libelle', 'ASC');
+    }
 
     // /**
     //  * @return Theme[] Returns an array of Theme objects

@@ -2,13 +2,13 @@
 
 namespace App\Form;
 
-use App\Entity\Atelier;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type as Type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+use App\Entity\Atelier;
 use App\Entity\Theme;
 
 use App\Repository\ThemeRepository;
@@ -20,11 +20,13 @@ class AtelierType extends AbstractType
         $builder
             ->add('libelle', Type\TextType::class)
             ->add('nbPlacesMaxi', Type\IntegerType::class)
-            ->add('theme', EntityType::class, [
+            ->add('lesthemes', EntityType::class, [
                 'class' => Theme::class,
-                'choice_label' => 'nom',
+                'choice_label' => 'libelle',
+                'expanded' => true,
+                'multiple' => true,
                 'query_builder' => function(ThemeRepository $repo) {
-                    $lesThemes = $repo->findAll();
+                    $lesThemes = $repo->getThemesTrieSurNom();
                     return $lesThemes;
                 },
             ])
