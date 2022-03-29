@@ -59,11 +59,11 @@ class Hotel
     /**
      * @ORM\OneToMany(targetEntity=Proposer::class, mappedBy="unHotel")
      */
-    private $leTarifNuite;
+    private $leTarifNuitee;
 
     public function __construct()
     {
-        $this->leTarifNuite = new ArrayCollection();
+        $this->leTarifNuitee = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,7 +107,7 @@ class Hotel
         return $this;
     }
 
-    public function getCp(): ?int
+    public function getCp(): ?string
     {
         return $this->cp;
     }
@@ -131,12 +131,12 @@ class Hotel
         return $this;
     }
 
-    public function getTel(): ?int
+    public function getTel(): ?string
     {
         return $this->tel;
     }
 
-    public function setTel(int $tel): self
+    public function setTel(string $tel): self
     {
         $this->tel = $tel;
 
@@ -158,27 +158,27 @@ class Hotel
     /**
      * @return Collection<int, Proposer>
      */
-    public function getLeTarifNuite(): Collection
+    public function getLeTarifNuitee(): Collection
     {
-        return $this->leTarifNuite;
+        return $this->leTarifNuitee;
     }
 
-    public function addLeTarifNuite(Proposer $leTarifNuite): self
+    public function addLeTarifNuitee(Proposer $leTarifNuitee): self
     {
-        if (!$this->leTarifNuite->contains($leTarifNuite)) {
-            $this->leTarifNuite[] = $leTarifNuite;
-            $leTarifNuite->setUnHotel($this);
+        if (!$this->leTarifNuitee->contains($leTarifNuitee)) {
+            $this->leTarifNuitee[] = $leTarifNuitee;
+            $leTarifNuitee->setUnHotel($this);
         }
 
         return $this;
     }
 
-    public function removeLeTarifNuite(Proposer $leTarifNuite): self
+    public function removeLeTarifNuitee(Proposer $leTarifNuitee): self
     {
-        if ($this->leTarifNuite->removeElement($leTarifNuite)) {
+        if ($this->leTarifNuitee->removeElement($leTarifNuitee)) {
             // set the owning side to null (unless already changed)
-            if ($leTarifNuite->getUnHotel() === $this) {
-                $leTarifNuite->setUnHotel(null);
+            if ($leTarifNuitee->getUnHotel() === $this) {
+                $leTarifNuitee->setUnHotel(null);
             }
         }
 

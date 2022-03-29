@@ -2,3 +2,11 @@
     background-color: #727074;
     color: wheat;
 }
+
+.blockEncadre{
+    background-color: #a9a372;
+    border: 1px solid #000000;
+    color: white;
+    font-weight: bold;
+    font-family: math;
+}
