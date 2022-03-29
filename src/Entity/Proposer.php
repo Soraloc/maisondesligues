@@ -27,12 +27,12 @@ class Proposer
         return $this->id;
     }
 
-    public function getTarifNuitee(): ?int
+    public function getTarifNuitee(): ?float
     {
         return $this->tarifNuitee;
     }
 
-    public function setTarifNuitee(int $tarifNuitee): self
+    public function setTarifNuitee(float $tarifNuitee): self
     {
         $this->tarifNuitee = $tarifNuitee;
 
