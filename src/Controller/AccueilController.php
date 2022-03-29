@@ -14,6 +14,6 @@ class AccueilController extends AbstractController
      */
     public function accueil(): Response
     {
-        return $this->render('vue/accueil.html.twig');
+        return $this->render('vues/accueil.html.twig');
     }
 }

@@ -13,6 +13,6 @@ class TestController extends AbstractController
      */
     public function accueil(): Response
     {
-        return $this->render('vue/test.html.twig');
+        return $this->render('vues/test.html.twig');
     }
 }

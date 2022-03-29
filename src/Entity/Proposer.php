@@ -18,23 +18,23 @@ class Proposer
     private $id;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2, name="tarifnuite")
+     * @ORM\Column(type="decimal", precision=5, scale=2, name="tarifnuitee")
      */
-    private $tarifNuite;
+    private $tarifNuitee;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTarifNuite(): ?int
+    public function getTarifNuitee(): ?int
     {
-        return $this->tarifNuite;
+        return $this->tarifNuitee;
     }
 
-    public function setTarifNuite(int $tarifNuite): self
+    public function setTarifNuitee(int $tarifNuitee): self
     {
-        $this->tarifNuite = $tarifNuite;
+        $this->tarifNuitee = $tarifNuitee;
 
         return $this;
     }

@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\NuiteRepository;
+use App\Repository\NuiteeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=NuiteRepository::class)
+ * @ORM\Entity(repositoryClass=NuiteeRepository::class)
  */
-class Nuite
+class Nuitee
 {
     /**
      * @ORM\Id
