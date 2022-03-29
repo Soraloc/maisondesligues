@@ -12,8 +12,9 @@ class AccueilController extends AbstractController
      * @Route("/accueil", name="accueil")
      * @Route("/")
      */
-    public function accueil(): Response
+    public function accueil(HotelRepository $repo): Response
     {
-        return $this->render('vues/accueil.html.twig');
+        $hotels = $repo->findAll();
+        return $this->render('vues/accueil.html.twig', ['hotels'=> $hotels,]);
     }
 }

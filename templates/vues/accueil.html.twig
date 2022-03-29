@@ -11,6 +11,17 @@
         <p>
             Le Congrès sera organisé le : Samedi 17 et le Dimanche 18 septembre 2022.
         </p>
+        <div class="d-flex justify-content-center">
+            <div class="p-2">Flex item 1</div>
+            <div class="p-2">Flex item 2</div>
+            <div class="p-2">Flex item 3</div>
+        </div>
+        <ul>
+        {% for hotel in hotels %}
+            <li>{{ hotel.pnom }}</li>
+        {% endfor %}
+        </ul>
+        
     </center>
 
 {% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\HotelRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -53,6 +55,16 @@ class Hotel
      * @Assert\Email
      */
     private $mail;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Proposer::class, mappedBy="unHotel")
+     */
+    private $leTarifNuite;
+
+    public function __construct()
+    {
+        $this->leTarifNuite = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -139,6 +151,36 @@ class Hotel
     public function setMail(string $mail): self
     {
         $this->mail = $mail;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Proposer>
+     */
+    public function getLeTarifNuite(): Collection
+    {
+        return $this->leTarifNuite;
+    }
+
+    public function addLeTarifNuite(Proposer $leTarifNuite): self
+    {
+        if (!$this->leTarifNuite->contains($leTarifNuite)) {
+            $this->leTarifNuite[] = $leTarifNuite;
+            $leTarifNuite->setUnHotel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLeTarifNuite(Proposer $leTarifNuite): self
+    {
+        if ($this->leTarifNuite->removeElement($leTarifNuite)) {
+            // set the owning side to null (unless already changed)
+            if ($leTarifNuite->getUnHotel() === $this) {
+                $leTarifNuite->setUnHotel(null);
+            }
+        }
 
         return $this;
     }
