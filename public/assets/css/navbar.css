@@ -1,5 +1,6 @@
 .ColorBGnavbar{
-    background-color: #2660ff;
+    background: rgb(151,164,210);
+    background: radial-gradient(circle, rgba(151,164,210,1) 0%, rgba(0,74,161,1) 100%);
 }
 
 .imgNav{
