@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\VacationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Config\Definition\Exception\Exception;
+use \Exception;
 
 /**
  * @ORM\Entity(repositoryClass=VacationRepository::class)

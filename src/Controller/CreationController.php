@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Config\Definition\Exception\Exception;
+use \Exception;
 
 use App\Entity\Atelier;
 use App\Entity\Theme;
