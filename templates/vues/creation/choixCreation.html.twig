@@ -8,11 +8,11 @@
             {{ message }}
         </div>
     {% endfor %}
-    <h1 class="mt-5 text-center"> Choix de création </h1>
+    <h2 class="mt-5 text-center"> Choix de création </h2>
     <hr class="mt-4 w-25">
     <div class="container">
         {{ form_start(choixCreationForm) }}
-        <div class="row col-5 mt-5 mb-3">
+        <div class="row col-5 mt-5 mb-4">
             {{ form_label(choixCreationForm.choix, 'Choisir ce qui doit être créé :') }}
             {{ form_widget(choixCreationForm.choix) }}
         </div>

@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 use App\Entity\Atelier;
 use App\Entity\Theme;
@@ -114,18 +115,24 @@ class CreationController extends AbstractController
         $ateliers = $repo->findAll();
         $vacation = new Vacation;
         $form = $this->createForm(VacationType::class, $vacation);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $manager->persist($vacation);
-            $manager->flush();
-            $this->addFlash('confirmation', 'La vacation a bien été créée !');
-            return $this->redirectToRoute('creer_choix');
+        try {
+            $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid())
+            {
+                $manager->persist($vacation);
+                $manager->flush();
+                $this->addFlash('confirmation', 'La vacation a bien été créée !');
+                return $this->redirectToRoute('creer_choix');
+            }
+        } catch (Exception $ex) {
+            $this->addFlash('erreur', $ex->getMessage());
         }
-        return $this->render('vues/creation/creerVacation.html.twig', [
+        finally {
+            return $this->render('vues/creation/creerVacation.html.twig', [
             'ateliers' => $ateliers,
             'vacationForm' => $form->createView(),
         ]);
+        }
     }
     
 }

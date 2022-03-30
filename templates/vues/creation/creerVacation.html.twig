@@ -3,6 +3,11 @@
 {% block title %}Ajout de données - MDL{% endblock %}
 
 {% block content %}
+    {% for message in app.flashes('erreur') %}
+        <div class="alert alert-danger mt-4 text-center" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
     <h2 class="mt-5 text-center"> Création d'une vacation </h2>
     <hr class="mt-4 w-25">
     {% if ateliers %}
@@ -27,8 +32,8 @@
             {{ form_end(vacationForm) }}
         </div>
     {% else %}
-        <div class="alert alert-warning mt-4">
-            <p class="text-center"> La création de vacations est impossible. Il n'y a aucun atelier d'enregistrer. </p>
+        <div class="alert alert-warning mt-4 text-center">
+            La création de vacations est impossible. Il n'y a aucun atelier d'enregistrer.
         </div>
         <div class="mt-5 text-center">
         <a href="/creer/atelier" class="btn btn-primary w-25"> Créer un atelier </a>

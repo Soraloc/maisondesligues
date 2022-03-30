@@ -19,10 +19,10 @@ class VacationType extends AbstractType
     {
         $builder
             ->add('dateHeureDebut', Type\DateTimeType::class, [
-                'date_widget' => 'single_text',
+                'widget' => 'single_text',
             ])
             ->add('dateHeureFin', Type\DateTimeType::class, [
-                'date_widget' => 'single_text',
+                'widget' => 'single_text',
             ])
             ->add('atelier', EntityType::class, [
                 'class' => Atelier::class,
