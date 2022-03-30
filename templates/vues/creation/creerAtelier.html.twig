@@ -1,8 +1,10 @@
 {% extends 'core.html.twig' %}
 
-{% block title %}Création d'un atelier{% endblock %}
+{% block title %}Ajout de données - MDL{% endblock %}
 
 {% block content %}
+    <h2 class="mt-5 text-center"> Création d'un atelier </h2>
+    <hr class="mt-4 w-25">
     {% if themes %}
         <div class="container">
             {{ form_start(atelierForm) }}
@@ -21,12 +23,17 @@
             </div>
             <div class="row col-4">
                 <button type="submit" class="btn btn-success"> Créer </button>
+                <button onclick="window.location.href = '/creer/choix';" class="btn btn-secondary ml-2"> Retour </button>
             </div>
             {{ form_end(atelierForm) }}
         </div>
     {% else %}
-        <div>
-            <p> La création d'ateliers est impossible. Il n'y a aucun thème d'enregistrer. </p>
+        <div class="alert alert-warning mt-4">
+            <p class="text-center"> La création d'ateliers est impossible. Il n'y a aucun thème d'enregistrer. </p>
+        </div>
+        <div class="mt-5 text-center">
+        <button onclick="window.location.href = '/creer/theme';" class="btn btn-primary w-25"> Créer un thème </button>
+        <button onclick="window.location.href = '/creer/choix';" class="btn btn-secondary ml-2 w-25"> Retour au choix de création </button>
         </div>
     {% endif %}
 {% endblock %}
