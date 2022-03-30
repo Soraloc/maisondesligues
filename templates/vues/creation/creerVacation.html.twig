@@ -1,8 +1,15 @@
 {% extends 'core.html.twig' %}
 
-{% block title %}Création d'un atelier{% endblock %}
+{% block title %}Ajout de données - MDL{% endblock %}
 
 {% block content %}
+    {% for message in app.flashes('erreur') %}
+        <div class="alert alert-danger mt-4 text-center" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <h2 class="mt-5 text-center"> Création d'une vacation </h2>
+    <hr class="mt-4 w-25">
     {% if ateliers %}
         <div class="container">
             {{ form_start(vacationForm) }}
@@ -20,12 +27,17 @@
             </div>
             <div class="row">
                 <button type="submit" class="btn btn-success"> Créer </button>
+                <a href="/creer/choix" class="btn btn-secondary ml-2"> Retour </a>
             </div>
             {{ form_end(vacationForm) }}
         </div>
     {% else %}
-        <div class="text-center">
-            <p> La création d'ateliers est impossible. Il n'y a aucun thème d'enregistrer. </p>
+        <div class="alert alert-warning mt-4 text-center">
+            La création de vacations est impossible. Il n'y a aucun atelier d'enregistrer.
+        </div>
+        <div class="mt-5 text-center">
+        <a href="/creer/atelier" class="btn btn-primary w-25"> Créer un atelier </a>
+        <a href="/creer/choix" class="btn btn-secondary ml-2 w-25"> Retour au choix de création </a>
         </div>
     {% endif %}
 {% endblock %}

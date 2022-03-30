@@ -1,7 +1,24 @@
-{% extends 'base.html.twig' %}
+{% extends 'core.html.twig' %}
 
-{% block title %}Choix de création{% endblock %}
+{% block title %}Ajout de données - MDL{% endblock %}
 
 {% block content %}
-
+    {% for message in app.flashes('confirmation') %}
+        <div class="alert alert-info mt-4 text-center" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <h2 class="mt-5 text-center"> Choix de création </h2>
+    <hr class="mt-4 w-25">
+    <div class="container">
+        {{ form_start(choixCreationForm) }}
+        <div class="row col-5 mt-5 mb-4">
+            {{ form_label(choixCreationForm.choix, 'Choisir ce qui doit être créé :') }}
+            {{ form_widget(choixCreationForm.choix) }}
+        </div>
+        <div class="row col-4">
+            <button type="submit" class="btn btn-success"> Continuer </button>
+        </div>
+        {{ form_end(choixCreationForm) }}
+    </div>
 {% endblock %}

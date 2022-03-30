@@ -1,9 +1,11 @@
 {% extends 'core.html.twig' %}
 
-{% block title %}Création d'un thème{% endblock %}
+{% block title %}Ajout de données - MDL{% endblock %}
 
 {% block content %}
     <div class="container">
+        <h2 class="mt-5 text-center"> Création d'un thème </h2>
+        <hr class="mt-4 w-25">
         {{ form_start(themeForm) }}
         <div class="row col-5 mt-5 mb-3">
             {{ form_label(themeForm.libelle, 'Libellé') }}
@@ -11,6 +13,7 @@
         </div>
         <div class="row col-4">
             <button type="submit" class="btn btn-success"> Créer </button>
+            <a href="/creer/choix" class="btn btn-secondary ml-2"> Retour </a>
         </div>
         {{ form_end(themeForm) }}
     </div>

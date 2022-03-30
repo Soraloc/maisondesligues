@@ -7,6 +7,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use \Exception;
+
 use App\Entity\Atelier;
 use App\Entity\Theme;
 use App\Entity\Vacation;
@@ -28,15 +31,27 @@ class CreationController extends AbstractController
      */
     public function choixCreation(Request $request, \Doctrine\ORM\EntityManagerInterface $manager): Response
     {
-        $form = $this->createForm(ChoixCreationType::class, $choixCreation);
+        $form = $this->createFormBuilder()
+            ->add('choix', ChoiceType::class, [
+                'choices' => [
+                    'Atelier' => 'atelier',
+                    'Thème' => 'theme',
+                    'Vacation' => 'vacation',
+                ],
+                'expanded' => true,
+                'multiple' => false,
+            ])
+            ->getForm();
+        
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
-            if($choixCreation == 'atelier')
+            $choixCreation = $form->getData();
+            if($choixCreation['choix'] == 'atelier')
             {
                 return $this->redirectToRoute('creer_atelier');
             }
-            elseif($choixCreation == 'theme')
+            elseif($choixCreation['choix'] == 'theme')
             {
                 return $this->redirectToRoute('creer_theme');
             }
@@ -63,7 +78,8 @@ class CreationController extends AbstractController
         {
             $manager->persist($atelier);
             $manager->flush();
-            return $this->redirectToRoute('creer_confirmation');
+            $this->addFlash('confirmation', "L'atelier a bien été créé !");
+            return $this->redirectToRoute('creer_choix');
         }
         return $this->render('vues/creation/creerAtelier.html.twig', [
             'themes' => $themes,
@@ -83,7 +99,8 @@ class CreationController extends AbstractController
         {
             $manager->persist($theme);
             $manager->flush();
-            return $this->redirectToRoute('creer_confirmation');
+            $this->addFlash('confirmation', 'Le thème a bien été créé !');
+            return $this->redirectToRoute('creer_choix');
         }
         return $this->render('vues/creation/creerTheme.html.twig', [
             'themeForm' => $form->createView(),
@@ -98,26 +115,24 @@ class CreationController extends AbstractController
         $ateliers = $repo->findAll();
         $vacation = new Vacation;
         $form = $this->createForm(VacationType::class, $vacation);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $manager->persist($vacation);
-            $manager->flush();
-            return $this->redirectToRoute('creer_confirmation');
+        try {
+            $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid())
+            {
+                $manager->persist($vacation);
+                $manager->flush();
+                $this->addFlash('confirmation', 'La vacation a bien été créée !');
+                return $this->redirectToRoute('creer_choix');
+            }
+        } catch (Exception $ex) {
+            $this->addFlash('erreur', $ex->getMessage());
         }
-        return $this->render('vues/creation/creerVacation.html.twig', [
+        finally {
+            return $this->render('vues/creation/creerVacation.html.twig', [
             'ateliers' => $ateliers,
             'vacationForm' => $form->createView(),
         ]);
+        }
     }
     
-    /**
-     * @Route("/confirmation", name="_confirmation")
-     */
-    public function confirmation(Request $request, \Doctrine\ORM\EntityManagerInterface $manager): Response
-    {
-        return $this->render('vues/creation/confirmation.html.twig', [
-            'confirmation' => $form->createView(),
-        ]);
-    }
 }
