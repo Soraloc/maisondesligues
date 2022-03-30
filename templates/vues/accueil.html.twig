@@ -7,30 +7,30 @@
             financée par le Conseil Régional de Lorraine dont l'administration est déléguée au Comité Régional 
             Olympique et Sportif de Lorraine (CROSL).
         </p>
-        
         <p class="red">
             Le Congrès sera organisé le : Samedi 17 et le Dimanche 18 septembre 2022.
         </p>
         
         <ul>
             <h5> Hotels à proximitées :</h5>
-        {% for hotel in hotels %}
-            <div class="d-inline-flex p-2 blockEncadre">
-                {{ hotel.pnom }}<br>
-                <th>-----------------</th><br>
-                {{ hotel.adresse1 }}<br>
-                {{ hotel.cp }}<br>
-                {{ hotel.ville }}<br>
-                {{ hotel.tel }}<br>
-                {{ hotel.mail }}<br>
-                Single | Double<br>
-                {% for tarif in hotel.leTarifNuitee %}
-                    [{{ tarif.tarifNuitee }}€]
-                {# {{ hotel.leTarifNuite }} #}
+                {% for hotel in hotels %}
+                    <div class="d-inline-flex p-2 blockEncadre">
+                        {{ hotel.pnom }}<br>
+                        <th>-----------------</th><br>
+                        {{ hotel.adresse1 }}<br>
+                        {{ hotel.cp }}<br>
+                        {{ hotel.ville }}<br>
+                        {{ hotel.tel }}<br>
+                        {{ hotel.mail }}<br>
+                        Single | Double<br>
+                        {% for tarif in hotel.leTarifNuitee %}
+                            [{{ tarif.tarifNuitee }}€]
+                            {# {{ hotel.leTarifNuite }} #}
+                        {% endfor %}
+                    </div>
                 {% endfor %}
-            </div>
-        {% endfor %}
         </ul>
+        
         <p>
            Tarif repas accompagnant 30€ le repas
         </p>
@@ -38,5 +38,19 @@
            Possibilités : samedi midi - samedi soir – dimanche midi
         </p>
     </center>
+        
+    <div class="d-flex justify-content-around">
+        <div class="p-2">gauche<br>euh</div>
+        <div class="p-2">centre</div>
+        <div class="p-2">droit</div>
+    </div>
+
+    <div class="d-flex justify-content-around">
+    {% for atelier in ateliers %}
+        <div class="p-2">{{ atelier.libelle }}</div>
+        <div class="p-2">{{ atelier.nbplacesmaxi }}</div>
+    {% endfor %}
+    </div>
+        
 
 {% endblock %}
