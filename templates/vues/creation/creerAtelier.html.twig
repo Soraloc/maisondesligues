@@ -1,0 +1,32 @@
+{% extends 'core.html.twig' %}
+
+{% block title %}Création d'un atelier{% endblock %}
+
+{% block content %}
+    {% if themes %}
+        <div class="container">
+            {{ form_start(atelierForm) }}
+            <div class="row col-5 mt-5">
+                {{ form_label(atelierForm.libelle, 'Libellé') }}
+                {{ form_widget(atelierForm.libelle, {'attr': {'placeholder': "Saisir le libelle de l'atelier"}}) }}
+            </div>
+            <div class="row col-5 mt-3">
+                {{ form_label(atelierForm.nbPlacesMaxi, 'Nombre maximum de places') }}
+                {{ form_widget(atelierForm.nbPlacesMaxi) }}
+                {{ form_errors(atelierForm.nbPlacesMaxi) }}
+            </div>
+            <div class="row col-6 mt-3 mb-3">
+                {{ form_label(atelierForm.lesthemes, 'Thèmes correspondant') }}
+                {{ form_widget(atelierForm.lesthemes) }}
+            </div>
+            <div class="row col-4">
+                <button type="submit" class="btn btn-success"> Créer </button>
+            </div>
+            {{ form_end(atelierForm) }}
+        </div>
+    {% else %}
+        <div>
+            <p> La création d'ateliers est impossible. Il n'y a aucun thème d'enregistrer. </p>
+        </div>
+    {% endif %}
+{% endblock %}

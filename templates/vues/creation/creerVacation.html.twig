@@ -1,0 +1,31 @@
+{% extends 'core.html.twig' %}
+
+{% block title %}Création d'un atelier{% endblock %}
+
+{% block content %}
+    {% if ateliers %}
+        <div class="container">
+            {{ form_start(vacationForm) }}
+            <div class="row mt-5">
+                {{ form_label(vacationForm.dateHeureDebut, 'Date et heure du début') }}
+                {{ form_widget(vacationForm.dateHeureDebut, {'attr': {'placeholder': "Saisir la date et l'heure du début de la vacation"}}) }}
+            </div>
+            <div class="row mt-2">
+                {{ form_label(vacationForm.dateHeureDebut, 'Date et heure de fin') }}
+                {{ form_widget(vacationForm.dateHeureFin, {'attr': {'placeholder': "Saisir la date et l'heure de la fin de la vacation"}}) }}
+            </div>
+            <div class="row mt-2 mb-4">
+                {{ form_label(vacationForm.atelier, 'Atelier correspondant') }}
+                {{ form_widget(vacationForm.atelier) }}
+            </div>
+            <div class="row">
+                <button type="submit" class="btn btn-success"> Créer </button>
+            </div>
+            {{ form_end(vacationForm) }}
+        </div>
+    {% else %}
+        <div class="text-center">
+            <p> La création d'ateliers est impossible. Il n'y a aucun thème d'enregistrer. </p>
+        </div>
+    {% endif %}
+{% endblock %}

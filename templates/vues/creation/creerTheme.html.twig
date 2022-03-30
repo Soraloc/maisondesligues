@@ -1,0 +1,17 @@
+{% extends 'core.html.twig' %}
+
+{% block title %}Création d'un thème{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {{ form_start(themeForm) }}
+        <div class="row col-5 mt-5 mb-3">
+            {{ form_label(themeForm.libelle, 'Libellé') }}
+            {{ form_widget(themeForm.libelle, {'attr': {'placeholder': "Saisir le libelle du thème"}}) }}
+        </div>
+        <div class="row col-4">
+            <button type="submit" class="btn btn-success"> Créer </button>
+        </div>
+        {{ form_end(themeForm) }}
+    </div>
+{% endblock %}
