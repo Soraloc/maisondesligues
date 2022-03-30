@@ -41,7 +41,7 @@ class Atelier
 
     /**
      * @ORM\ManyToMany(targetEntity=Theme::class, inversedBy="lesAteliers")
-     * @ORM\JoinTable(name="idtheme")
+     * @ORM\JoinTable(name="liaisonateliertheme")
      */
     private $lesThemes;
 
