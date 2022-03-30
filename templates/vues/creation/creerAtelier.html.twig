@@ -15,7 +15,6 @@
             <div class="row col-5 mt-3">
                 {{ form_label(atelierForm.nbPlacesMaxi, 'Nombre maximum de places') }}
                 {{ form_widget(atelierForm.nbPlacesMaxi) }}
-                {{ form_errors(atelierForm.nbPlacesMaxi) }}
             </div>
             <div class="row col-6 mt-3 mb-3">
                 {{ form_label(atelierForm.lesthemes, 'Thèmes correspondant') }}
@@ -23,7 +22,7 @@
             </div>
             <div class="row col-4">
                 <button type="submit" class="btn btn-success"> Créer </button>
-                <button onclick="window.location.href = '/creer/choix';" class="btn btn-secondary ml-2"> Retour </button>
+                <a href="/creer/choix" class="btn btn-secondary ml-2"> Retour </a>
             </div>
             {{ form_end(atelierForm) }}
         </div>
@@ -32,8 +31,8 @@
             <p class="text-center"> La création d'ateliers est impossible. Il n'y a aucun thème d'enregistrer. </p>
         </div>
         <div class="mt-5 text-center">
-        <button onclick="window.location.href = '/creer/theme';" class="btn btn-primary w-25"> Créer un thème </button>
-        <button onclick="window.location.href = '/creer/choix';" class="btn btn-secondary ml-2 w-25"> Retour au choix de création </button>
+        <a href="/creer/theme" class="btn btn-primary w-25"> Créer un thème </a>
+        <a href="/creer/choix" class="btn btn-secondary ml-2 w-25"> Retour au choix de création </a>
         </div>
     {% endif %}
 {% endblock %}
