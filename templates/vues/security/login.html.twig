@@ -1,33 +1,28 @@
 {% extends 'core.html.twig' %}
+{% block title %}MDL Login{% endblock %}
 {% block content %}
 
-{% block title %}MDL Login{% endblock %}
 
-{% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    {% block body %}
+        {% for message in app.flashes('erreur') %}
+            <div class="alert alert-danger mt-4 text-center" role="message">
+                {{ message }}
+            </div>
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+        {% endfor %}
+        <form method="post">
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputIdentifiant">Identifiant:</label>
-    <input type="text" value="{{ last_username }}" name="identifiant" id="inputIdentifiant" class="form-control" autocomplete="username" required autofocus>
-    <label for="inputPassword">Password:</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+            <h1 class="h3 mb-3 font-weight-normal">Connexion Maison des Ligues</h1>
+            <label for="inputIdentifiant">Identifiant:</label>
+            <input type="text" value="{{ last_username }}" name="identifiant" id="inputIdentifiant" class="form-control" autocomplete="username" required autofocus>
+            <label for="inputPassword">Mot de passe:</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+                   >
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
-{% endblock %}
+            <button class="btn btn-lg btn-primary" type="submit">Connexion</button>
+        </form>
+    {% endblock %}
 {% endblock %}

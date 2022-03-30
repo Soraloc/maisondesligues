@@ -1,5 +1,11 @@
 {% extends "core.html.twig" %}
 {% block content %}
+    {% for message in app.flashes('erreur') %}
+        <div class="alert alert-danger mt-4 text-center" role="alert">
+            {{ message }}
+        </div>
+
+    {% endfor %}
     <center>
         <p class="info">
             La Maison des Ligues de Lorraine (MDL) a pour mission de fournir des espaces et des services aux 
@@ -7,7 +13,7 @@
             financée par le Conseil Régional de Lorraine dont l'administration est déléguée au Comité Régional 
             Olympique et Sportif de Lorraine (CROSL).
         </p>
-        
+
         <p>
             Le Congrès sera organisé le : Samedi 17 et le Dimanche 18 septembre 2022.
         </p>

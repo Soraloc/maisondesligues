@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Compte;
+use App\Entity\Licencie;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,36 +12,68 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 
-class RegistrationController extends AbstractController
-{
+class RegistrationController extends AbstractController {
+
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $userPasswordEncoder, EntityManagerInterface $entityManager): Response
-    {
+    public function register(Request $request, UserPasswordEncoderInterface $userPasswordEncoder, EntityManagerInterface $entityManager): Response {
         $user = new Compte();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-            $userPasswordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-            // do anything else you need here, like send an email
-
-            return $this->redirectToRoute('accueil');
+        $password = $form->get('plainPassword')->getData();
+        $confPassword = $form->get('confPassword')->getData();
+        $numLicence = $form->get('identifiant')->getData();
+        if ($password == $confPassword && $confPassword != null) {
+            if ($this->numLicenceExiste($entityManager, $numLicence) == true) {
+                if ($this->compteExiste($entityManager, $numLicence) != true) {
+                    if ($form->isSubmitted() && $form->isValid()) {
+                        $user->setRoles((array) "ROLE_INSCRIT");
+                        $user->setPassword(
+                                $userPasswordEncoder->encodePassword(
+                                        $user,
+                                        $password
+                                ));
+                        $entityManager->persist($user);
+                        $entityManager->flush();
+                        return $this->redirectToRoute('app_login');
+                        $this->addFlash('message', "Compte crée !");
+                    }
+                } else {
+                    return $this->redirectToRoute('app_login');
+                }
+            } else {
+                $this->addFlash('erreur', "Le numéro de licence fournis n'existe pas !");
+                return $this->redirectToRoute('accueil');
+            }
+        } else {
+            $this->addFlash('message', "Les mots de passe ne corresponde pas !");
         }
-
         return $this->render('vues/registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
+                    'registrationForm' => $form->createView(),
         ]);
     }
+
+    public function numLicenceExiste(EntityManagerInterface $entityManager, int $numLicence) {
+        $licencie = $entityManager->getRepository("App\Entity\Licencie")->findAll();
+        foreach ($licencie as $unLicencie) {
+            if ($unLicencie->getNumLicence() == $numLicence) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function compteExiste(EntityManagerInterface $entityManager, int $numLicence) {
+        $compte = $entityManager->getRepository("App\Entity\Compte")->findAll();
+        foreach ($compte as $unCompte) {
+            if ($unCompte->getIdentifiant() == $numLicence) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
