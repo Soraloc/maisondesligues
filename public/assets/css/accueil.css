@@ -19,6 +19,10 @@
     font-family: math;
 }
 
+.clearfix {
+clear: both;
+}
+
 .red{
     color: red;
 }
