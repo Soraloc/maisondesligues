@@ -3,8 +3,16 @@
     color: white;
 }
 
-.blockEncadre{
-    background-color: #a9a372;
+.blockEncadreH{
+    background-color: #2a67ab;
+    border: 1px solid #000000;
+    color: white;
+    font-weight: bold;
+    font-family: math;
+}
+
+.blockEncadreA{
+    background-color: #4f657e;
     border: 1px solid #000000;
     color: white;
     font-weight: bold;
