@@ -1,6 +1,7 @@
 {% extends "core.html.twig" %}
 {% block content %}
     <center>
+        
         <p class="info">
             La Maison des Ligues de Lorraine (MDL) a pour mission de fournir des espaces et des services aux 
             différentes ligues sportives régionales et à d’autres structures hébergées. La MDL est une structure 
@@ -37,30 +38,29 @@
             Possibilités : samedi midi - samedi soir – dimanche midi
         </p>
 
-        
-    <h5> Ateliers disponible :</h5>
-    <div class="d-flex blockEncadreA">
-        <div class="p-2 info">
-            Libelle :<br>
-            Nombre de places :<br>
-            Theme :<br>
-            Début :<br>
-            fin :
-        </div>
-        {% for atelier in ateliers %}
-            <div class="p-2">
-                {{ atelier.libelle }}<br>
-                {{ atelier.nbplacesmaxi }}<br>
-                {% for theme in atelier.lesThemes %}
-                    {{ theme.libelle }}<br>
-                {% endfor %}
-                {% for vacation in atelier.lesVacations %}
-                    {{ vacation.dateHeureDebut|date('d-m-Y') }}<br>
-                    {{ vacation.dateHeureFin |date('d-m-Y') }}<br>
-                {% endfor %}
+        <h5> Ateliers disponible :</h5>
+        <div class="d-flex blockEncadreA">
+            <div class="p-2 info">
+                Libelle :<br>
+                Nombre de places :<br>
+                Theme :<br>
+                Début :<br>
+                fin :
             </div>
-        {% endfor %}
-    </div>
+            {% for atelier in ateliers %}
+                <div class="p-2">
+                    {{ atelier.libelle }}<br>
+                    {{ atelier.nbplacesmaxi }}<br>
+                    {% for theme in atelier.lesThemes %}
+                        {{ theme.libelle }}<br>
+                    {% endfor %}
+                    {% for vacation in atelier.lesVacations %}
+                        {{ vacation.dateHeureDebut|date('d-m-Y') }}<br>
+                        {{ vacation.dateHeureFin |date('d-m-Y') }}<br>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        
     </center>
-
 {% endblock %}
