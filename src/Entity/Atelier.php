@@ -42,6 +42,10 @@ class Atelier
     /**
      * @ORM\ManyToMany(targetEntity=Theme::class, inversedBy="lesAteliers")
      * @ORM\JoinTable(name="liaisonateliertheme")
+     * @Assert\Count(
+     *      min = "1",
+     *      minMessage = "You must specify at least one email",
+     *      )
      */
     private $lesThemes;
 
