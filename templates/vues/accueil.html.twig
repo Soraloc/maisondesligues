@@ -8,7 +8,7 @@
             Olympique et Sportif de Lorraine (CROSL).
         </p>
         
-        <p>
+        <p class="red">
             Le Congrès sera organisé le : Samedi 17 et le Dimanche 18 septembre 2022.
         </p>
         
@@ -22,15 +22,21 @@
                 {{ hotel.cp }}<br>
                 {{ hotel.ville }}<br>
                 {{ hotel.tel }}<br>
-                {{ hotel.mail }}
+                {{ hotel.mail }}<br>
+                Single | Double<br>
                 {% for tarif in hotel.leTarifNuitee %}
-                    {{ tarif.tarifNuitee }}
+                    [{{ tarif.tarifNuitee }}€]
                 {# {{ hotel.leTarifNuite }} #}
                 {% endfor %}
             </div>
         {% endfor %}
         </ul>
-        
+        <p>
+           Tarif repas accompagnant 30€ le repas
+        </p>
+        <p>
+           Possibilités : samedi midi - samedi soir – dimanche midi
+        </p>
     </center>
 
 {% endblock %}
