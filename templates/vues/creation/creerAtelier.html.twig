@@ -22,7 +22,7 @@
             </div>
             <div class="row col-4">
                 <button type="submit" class="btn btn-success"> Créer </button>
-                <a href="/creer/choix" class="btn btn-secondary ml-2"> Retour </a>
+                <a href="{{ path('creer_choix') }}" class="btn btn-secondary ml-2"> Retour </a>
             </div>
             {{ form_end(atelierForm) }}
         </div>
@@ -31,8 +31,8 @@
             La création d'ateliers est impossible. Il n'y a aucun thème d'enregistrer.
         </div>
         <div class="mt-5 text-center">
-        <a href="/creer/theme" class="btn btn-primary w-25"> Créer un thème </a>
-        <a href="/creer/choix" class="btn btn-secondary ml-2 w-25"> Retour au choix de création </a>
+            <a href="{{ path('creer_theme') }}" class="btn btn-primary w-25"> Créer un thème </a>
+            <a href="{{ path('creer_choix') }}" class="btn btn-secondary ml-2 w-25"> Retour au choix de création </a>
         </div>
     {% endif %}
 {% endblock %}

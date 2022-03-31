@@ -41,7 +41,10 @@ class Atelier
 
     /**
      * @ORM\ManyToMany(targetEntity=Theme::class, inversedBy="lesAteliers")
-     * @ORM\JoinTable(name="liaisonateliertheme")
+     * @ORM\JoinTable(name="liaisonateliertheme",
+     *      joinColumns={@ORM\JoinColumn(name="idatelier", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="idtheme", referencedColumnName="id")},
+     *      )
      * @Assert\Count(
      *      min = "1",
      *      minMessage = "You must specify at least one email",
