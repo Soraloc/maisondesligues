@@ -47,7 +47,7 @@ class Atelier
      *      )
      * @Assert\Count(
      *      min = "1",
-     *      minMessage = "You must specify at least one email",
+     *      minMessage = "Un atelier doit posséder au moins 1 thème",
      *      )
      */
     private $lesThemes;

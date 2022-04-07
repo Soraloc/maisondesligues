@@ -20,6 +20,7 @@
                 {{ form_label(atelierForm.lesthemes, 'Thèmes correspondant') }}
                 {{ form_widget(atelierForm.lesthemes) }}
             </div>
+            {{ form_errors(atelierForm) }}
             <div class="row col-4">
                 <button type="submit" class="btn btn-success"> Créer </button>
                 <a href="{{ path('creer_choix') }}" class="btn btn-secondary ml-2"> Retour </a>
