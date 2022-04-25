@@ -1,0 +1,28 @@
+{% extends 'core.html.twig' %}
+
+{% block title %}Modification des vacations - MDL{% endblock %}
+
+{% block content %}
+    <h2 class="mt-5 text-center"> Modification d'une vacation </h2>
+    <hr class="mt-4 w-25">
+    <div class="container">
+        {{ form_start(vacationForm) }}
+        <div class="row mt-5">
+            {{ form_label(vacationForm.dateHeureDebut, 'Date et heure du début') }}
+            {{ form_widget(vacationForm.dateHeureDebut, {'attr': {'placeholder': "Saisir la date et l'heure du début de la vacation"}}) }}
+        </div>
+        <div class="row mt-2">
+            {{ form_label(vacationForm.dateHeureDebut, 'Date et heure de fin') }}
+            {{ form_widget(vacationForm.dateHeureFin, {'attr': {'placeholder': "Saisir la date et l'heure de la fin de la vacation"}}) }}
+        </div>
+        <div class="row mt-2 mb-4">
+            {{ form_label(vacationForm.atelier, 'Atelier correspondant') }}
+            {{ form_widget(vacationForm.atelier) }}
+        </div>
+        <div class="row">
+            <button type="submit" class="btn btn-success"> Modifier </button>
+            <a href="{{ path('creer_choix') }}" class="btn btn-secondary ml-2"> Retour </a>
+        </div>
+        {{ form_end(vacationForm) }}
+    </div>
+{% endblock %}
