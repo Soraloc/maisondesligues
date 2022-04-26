@@ -5,19 +5,22 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\CompteRepository;
 
 /**
  * Description of ListeAteliersController
  *
  * @author paul-henri.solat
  */
-class TestController extends AbstractController
+class CompteController extends AbstractController
 {
     /**
-     * @Route("/test", name="test")
+     * @Route("/compte", name="compte")
      */
-    public function test(): Response
+    public function compte(CompteRepository $repoCompte): Response
     {
-       return $this->render('vues/test.html.twig');
+       $compte = $repoCompte->findAll();
+       return $this->render('vues/compte.html.twig');
     }
 }
+
