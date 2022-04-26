@@ -34,8 +34,8 @@ class CreationController extends AbstractController
         $form = $this->createFormBuilder()
             ->add('choix', ChoiceType::class, [
                 'choices' => [
-                    'Atelier' => 'atelier',
                     'Thème' => 'theme',
+                    'Atelier' => 'atelier',
                     'Vacation' => 'vacation',
                 ],
                 'expanded' => true,
@@ -127,12 +127,10 @@ class CreationController extends AbstractController
         } catch (Exception $ex) {
             $this->addFlash('erreur', $ex->getMessage());
         }
-        finally {
-            return $this->render('vues/creation/creerVacation.html.twig', [
+        return $this->render('vues/creation/creerVacation.html.twig', [
             'ateliers' => $ateliers,
             'vacationForm' => $form->createView(),
         ]);
-        }
     }
     
 }

@@ -73,7 +73,7 @@ class Vacation
         }
         else
         {
-            throw new Exception("La date et l'heure de fin doit être supérieure à la date et l'heure du début.");
+            throw new Exception("La date et l'heure de fin doivent être supérieures à la date et l'heure du début.");
         }
     }
 

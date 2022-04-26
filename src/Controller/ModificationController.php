@@ -26,7 +26,9 @@ class ModificationController extends AbstractController
         $lesAteliers = array();
         foreach($vacations as $vacation)
         {
-            $lesAteliers[] = $vacation->getAtelier();
+            if(!in_array($vacation->getAtelier(), $lesAteliers)) {
+                $lesAteliers[] = $vacation->getAtelier();
+            }
         }
         return $this->render('vues/modification/selectionAtelier.html.twig', [
             'ateliers' => $lesAteliers,
@@ -42,6 +44,7 @@ class ModificationController extends AbstractController
         $atelier = $repo->find($idAtelier);
         $lesVacations = $atelier->getLesVacations();
         return $this->render('vues/modification/selectionVacation.html.twig', [
+            'atelier' => $atelier,
             'vacations' => $lesVacations,
         ]);
     }
@@ -51,18 +54,26 @@ class ModificationController extends AbstractController
      */
     public function modificationVacation(Request $request, \Doctrine\ORM\EntityManagerInterface $manager, VacationRepository $repo): Response
     {
-        $idVacation = $request->query->get('id');
+        $idVacation = $request->query->get('idvacation');
         $vacation = $repo->find($idVacation);
+        $atelier = $vacation->getAtelier();
+        $ancienneVacation = $vacation;
         $form = $this->createForm(VacationType::class, $vacation);
         $form->handleRequest($request);
-            if($form->isSubmitted() && $form->isValid())
-            {
+        if($form->isSubmitted() && $form->isValid())
+        {
+            if($vacation != $ancienneVacation){
                 $manager->persist($vacation);
                 $manager->flush();
                 $this->addFlash('confirmation', 'La vacation a bien été modifiée !');
                 return $this->redirectToRoute('modifier_selectionatelier');
             }
+            else {
+                $this->addFlash('erreur', "La vacation n'a pas été modifiée !");
+            }
+        }
         return $this->render('vues/modification/modificationVacation.html.twig', [
+            'idatelier' => $atelier->getId(),
             'vacation' => $vacation,
             'vacationForm' => $form->createView(),
         ]);

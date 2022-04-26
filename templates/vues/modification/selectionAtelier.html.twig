@@ -3,11 +3,6 @@
 {% block title %}Modification des vacations - MDL{% endblock %}
 
 {% block content %}
-    {% for message in app.flashes('confirmation') %}
-        <div class="alert alert-info mt-4 text-center" role="alert">
-            {{ message }}
-        </div>
-    {% endfor %}
     <h2 class="mt-5 text-center"> Liste des ateliers avec vacations </h2>
     <br>
     <div class="container">
@@ -26,7 +21,7 @@
                         <td> {{ atelier.id }} </th>
                         <td> {{ atelier.libelle }} </th>
                         <td> {{ atelier.nbPlacesMaxi }} </th>
-                        <td> <a href="{{ path('modifier_selectionvacation', {id: atelier.id}) }}">Afficher les vacations</td>
+                        <td> <a href="{{ path('modifier_selectionvacation', {id: atelier.id}) }}" class="btn btn-primary">Afficher les vacations</td>
                     </tr>
                 {% endfor %}
             </tbody>

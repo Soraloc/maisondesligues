@@ -15,11 +15,11 @@
             {{ form_start(vacationForm) }}
             <div class="row mt-5">
                 {{ form_label(vacationForm.dateHeureDebut, 'Date et heure du début') }}
-                {{ form_widget(vacationForm.dateHeureDebut, {'attr': {'placeholder': "Saisir la date et l'heure du début de la vacation"}}) }}
+                {{ form_widget(vacationForm.dateHeureDebut) }}
             </div>
             <div class="row mt-2">
-                {{ form_label(vacationForm.dateHeureDebut, 'Date et heure de fin') }}
-                {{ form_widget(vacationForm.dateHeureFin, {'attr': {'placeholder': "Saisir la date et l'heure de la fin de la vacation"}}) }}
+                {{ form_label(vacationForm.dateHeureFin, 'Date et heure de fin') }}
+                {{ form_widget(vacationForm.dateHeureFin) }}
             </div>
             <div class="row mt-2 mb-4">
                 {{ form_label(vacationForm.atelier, 'Atelier correspondant') }}

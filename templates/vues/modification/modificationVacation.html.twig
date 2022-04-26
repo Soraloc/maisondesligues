@@ -3,6 +3,11 @@
 {% block title %}Modification des vacations - MDL{% endblock %}
 
 {% block content %}
+    {% for message in app.flashes('erreur') %}
+        <div class="alert alert-warning mt-4 text-center" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
     <h2 class="mt-5 text-center"> Modification d'une vacation </h2>
     <hr class="mt-4 w-25">
     <div class="container">
@@ -21,7 +26,8 @@
         </div>
         <div class="row">
             <button type="submit" class="btn btn-success"> Modifier </button>
-            <a href="{{ path('creer_choix') }}" class="btn btn-secondary ml-2"> Retour </a>
+            <a href="{{ path('modifier_selectionvacation', {id: idatelier}) }}" class="btn btn-secondary ml-2"> Retour à la liste des vacations </a>
+            <a href="{{ path('modifier_selectionatelier') }}" class="btn btn-secondary ml-2"> Retour à la liste des ateliers </a>
         </div>
         {{ form_end(vacationForm) }}
     </div>
