@@ -13,6 +13,7 @@ class TestController extends AbstractController
      */
     public function accueil(): Response
     {
-        return $this->render('vues/test.html.twig');
+        define('SENDGRID_API_KEY','
+                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' );
     }
 }
