@@ -25,33 +25,52 @@ class RegistrationController extends AbstractController {
         $form->handleRequest($request);
         $password = $form->get('plainPassword')->getData();
         $confPassword = $form->get('confPassword')->getData();
-        $numLicence = $form->get('identifiant')->getData();
+        $identifiant = $form->get('identifiant')->getData();
         if ($password == $confPassword && $confPassword != null) {
-            if ($this->numLicenceExiste($entityManager, $numLicence) == true) {
-                if ($this->compteExiste($entityManager, $numLicence) != true) {
-                    if ($form->isSubmitted() && $form->isValid()) {
-                        $user->setRoles((array) "ROLE_INSCRIT");
-                        $user->setPassword(
-                                $userPasswordEncoder->encodePassword(
-                                        $user,
-                                        $password
+            if (!filter_var($identifiant, FILTER_VALIDATE_EMAIL)) {
+                if (filter_var($identifiant, FILTER_VALIDATE_INT)) {
+                    if ($this->numLicenceExiste($entityManager, $identifiant) == true) {
+                        if ($this->compteExiste($entityManager, $identifiant) != true) {
+                            if ($form->isSubmitted() && $form->isValid()) {
+                                $user->setRoles((array) "ROLE_INSCRIT");
+                                $user->setPassword(
+                                        $userPasswordEncoder->encodePassword(
+                                                $user,
+                                                $password
                                 ));
-                        $entityManager->persist($user);
-                        $entityManager->flush();
-                        return $this->redirectToRoute('app_login');
-                        $this->addFlash('message', "Compte crée !");
+                                $entityManager->persist($user);
+                                $entityManager->flush();
+                                $this->addFlash('message', "Compte inscrit crée !");
+                                return $this->redirectToRoute('app_login');
+                            }
+                        } else {
+                            return $this->redirectToRoute('app_login');
+                        }
+                    } else {
+                        $this->addFlash('erreur', "Le numéro de licence fournis n'existe pas !");
+                        return $this->redirectToRoute('accueil');
                     }
                 } else {
-                    return $this->redirectToRoute('app_login');
+                    $this->addFlash('erreur', "Identifiant incorrect !");
                 }
             } else {
-                $this->addFlash('erreur', "Le numéro de licence fournis n'existe pas !");
-                return $this->redirectToRoute('accueil');
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $user->setRoles((array) "ROLE_VISITEUR");
+                    $user->setPassword(
+                            $userPasswordEncoder->encodePassword(
+                                    $user,
+                                    $password
+                    ));
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+                    $this->addFlash('message', "Compte visiteur crée !");
+                    return $this->redirectToRoute('app_login');
+                }
             }
         } else {
             $this->addFlash('message', "Les mots de passe ne corresponde pas !");
         }
-        return $this->render('vues/registration/register.html.twig', [
+        return $this->render('vues/ChoixRegister/register.html.twig', [
                     'registrationForm' => $form->createView(),
         ]);
     }
