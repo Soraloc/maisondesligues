@@ -82,7 +82,7 @@ class Licencie
      * @ORM\JoinColumn(nullable=false, name="idqualite")
      */
     private $laQualite;
-
+    
     public function getId(): ?int
     {
         return $this->id;
