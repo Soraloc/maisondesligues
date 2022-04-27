@@ -24,6 +24,7 @@ class AtelierType extends AbstractType
                 'class' => Theme::class,
                 'choice_label' => 'libelle',
                 'expanded' => true,
+                'required' => true,
                 'multiple' => true,
                 'query_builder' => function(ThemeRepository $repo) {
                     $lesThemes = $repo->getThemesTrieSurNom();

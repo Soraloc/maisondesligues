@@ -44,7 +44,7 @@ class VacationRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
-
+    
     // /**
     //  * @return Vacation[] Returns an array of Vacation objects
     //  */

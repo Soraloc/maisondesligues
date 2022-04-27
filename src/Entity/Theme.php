@@ -26,7 +26,7 @@ class Theme
 
     /**
      * @ORM\ManyToMany(targetEntity=Atelier::class, mappedBy="lesThemes")
-     * @ORM\JoinTable(name="idatelier")
+     * @ORM\JoinTable(name="liaisonateliertheme")
      */
     private $lesAteliers;
 

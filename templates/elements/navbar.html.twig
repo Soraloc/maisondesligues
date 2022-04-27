@@ -1,11 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark ColorBGnavbar">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="{{ path('accueil') }}">
             <div class="logo-image">
                 <img src="{{asset('assets/images/logoMLD-removebg.png')}}" class="img-fluid imgNav">
             </div>
         </a>
-        <a class="navbar-brand" href="/accueil">Accueil</a>
+        <a class="navbar-brand" href="{{ path('accueil') }}">Accueil</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -19,7 +19,10 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="/creer/choix">Créer</a>
+                    <a class="nav-link" href="{{ path('creer_choix') }}">Créer</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="{{ path('modifier_selectionatelier') }}">Modifier</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">

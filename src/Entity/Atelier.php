@@ -41,7 +41,14 @@ class Atelier
 
     /**
      * @ORM\ManyToMany(targetEntity=Theme::class, inversedBy="lesAteliers")
-     * @ORM\JoinTable(name="liaisonateliertheme")
+     * @ORM\JoinTable(name="liaisonateliertheme",
+     *      joinColumns={@ORM\JoinColumn(name="idatelier", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="idtheme", referencedColumnName="id")},
+     *      )
+     * @Assert\Count(
+     *      min = "1",
+     *      minMessage = "Un atelier doit posséder au moins 1 thème",
+     *      )
      */
     private $lesThemes;
 

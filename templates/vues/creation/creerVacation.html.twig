@@ -15,11 +15,11 @@
             {{ form_start(vacationForm) }}
             <div class="row mt-5">
                 {{ form_label(vacationForm.dateHeureDebut, 'Date et heure du début') }}
-                {{ form_widget(vacationForm.dateHeureDebut, {'attr': {'placeholder': "Saisir la date et l'heure du début de la vacation"}}) }}
+                {{ form_widget(vacationForm.dateHeureDebut) }}
             </div>
             <div class="row mt-2">
-                {{ form_label(vacationForm.dateHeureDebut, 'Date et heure de fin') }}
-                {{ form_widget(vacationForm.dateHeureFin, {'attr': {'placeholder': "Saisir la date et l'heure de la fin de la vacation"}}) }}
+                {{ form_label(vacationForm.dateHeureFin, 'Date et heure de fin') }}
+                {{ form_widget(vacationForm.dateHeureFin) }}
             </div>
             <div class="row mt-2 mb-4">
                 {{ form_label(vacationForm.atelier, 'Atelier correspondant') }}
@@ -27,7 +27,7 @@
             </div>
             <div class="row">
                 <button type="submit" class="btn btn-success"> Créer </button>
-                <a href="/creer/choix" class="btn btn-secondary ml-2"> Retour </a>
+                <a href="{{ path('creer_choix') }}" class="btn btn-secondary ml-2"> Retour </a>
             </div>
             {{ form_end(vacationForm) }}
         </div>
@@ -36,8 +36,8 @@
             La création de vacations est impossible. Il n'y a aucun atelier d'enregistrer.
         </div>
         <div class="mt-5 text-center">
-        <a href="/creer/atelier" class="btn btn-primary w-25"> Créer un atelier </a>
-        <a href="/creer/choix" class="btn btn-secondary ml-2 w-25"> Retour au choix de création </a>
+        <a href="{{ path('creer_atelier') }}" class="btn btn-primary w-25"> Créer un atelier </a>
+        <a href="{{ path('creer_choix') }}" class="btn btn-secondary ml-2 w-25"> Retour au choix de création </a>
         </div>
     {% endif %}
 {% endblock %}
