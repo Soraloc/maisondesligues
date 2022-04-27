@@ -1,0 +1,13 @@
+/* 
+    Created on : 27 avr. 2022, 16:05:35
+    Author     : paul-henri.solat
+*/
+table,
+td {
+    border: 1px solid #333;
+    margin-left:10px
+}
+
+thead{
+    text-align: center;
+}
