@@ -56,25 +56,23 @@ class ModificationController extends AbstractController
     {
         $idVacation = $request->query->get('idvacation');
         $vacation = $repo->find($idVacation);
-        $atelier = $vacation->getAtelier();
         $ancienneVacation = $vacation;
+        $atelier = $vacation->getAtelier();
         $form = $this->createForm(VacationType::class, $vacation);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
-        {
-            if($vacation != $ancienneVacation){
+        try {
+            $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid())
+            {
                 $manager->persist($vacation);
                 $manager->flush();
                 $this->addFlash('confirmation', 'La vacation a bien été modifiée !');
                 return $this->redirectToRoute('modifier_selectionatelier');
             }
-            else {
-                $this->addFlash('erreur', "La vacation n'a pas été modifiée !");
-            }
+        } catch (Exception $ex) {
+            $this->addFlash('erreur', $ex->getMessage());
         }
         return $this->render('vues/modification/modificationVacation.html.twig', [
             'idatelier' => $atelier->getId(),
-            'vacation' => $vacation,
             'vacationForm' => $form->createView(),
         ]);
     }

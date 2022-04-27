@@ -3,6 +3,11 @@
 {% block title %}Modification des vacations - MDL{% endblock %}
 
 {% block content %}
+    {% for message in app.flashes('confirmation') %}
+        <div class="alert alert-info mt-4 text-center" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
     <h2 class="mt-5 text-center"> Liste des ateliers avec vacations </h2>
     <br>
     <div class="container">
