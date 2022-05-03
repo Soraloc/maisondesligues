@@ -41,28 +41,18 @@ class Compte implements UserInterface
         return $this->id;
     }
 
-    public function getIdentifiant(): ?string
+    public function getUsername(): ?string
     {
         return $this->identifiant;
     }
 
-    public function setIdentifiant(string $identifiant): self
+    public function setUsername(string $identifiant): self
     {
         $this->identifiant = $identifiant;
-
+        
         return $this;
     }
-
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
-    {
-        return (string) $this->identifiant;
-    }
-
+    
     /**
      * @see UserInterface
      */
