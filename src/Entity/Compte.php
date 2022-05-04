@@ -45,8 +45,13 @@ class Compte implements UserInterface
     {
         return $this->identifiant;
     }
+    
+    public function getIdentifiant(): ?string
+    {
+        return $this->identifiant;
+    }
 
-    public function setUsername(string $identifiant): self
+    public function setIdentifiant(string $identifiant): self
     {
         $this->identifiant = $identifiant;
         
@@ -58,11 +63,7 @@ class Compte implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return $this->roles;
     }
 
     public function setRoles(array $roles): self

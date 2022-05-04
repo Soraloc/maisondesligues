@@ -19,7 +19,8 @@ class RegistrationController extends AbstractController {
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $userPasswordEncoder, EntityManagerInterface $entityManager): Response {
+    public function register(Request $request, UserPasswordEncoderInterface $userPasswordEncoder,
+            EntityManagerInterface $entityManager, LicencieRepository $repoLicencie, CompteRepository $repoCompte): Response {
         $compte = new Compte();
         $role = array();
         $form = $this->createForm(RegistrationFormType::class, $compte);
@@ -29,31 +30,31 @@ class RegistrationController extends AbstractController {
             $identifiant = $form->get('identifiant')->getData();
             if (filter_var($identifiant, FILTER_VALIDATE_EMAIL)) {
                 $role = array("ROLE_VISITEUR");
+//                if ($this->compteExiste($identifiant, $repoCompte)) {
+//                    return $this->redirectToRoute('app_login');
+//                }
             } elseif (filter_var($identifiant, FILTER_VALIDATE_INT)) {
                 $role = array("ROLE_LICENCIE");
+                if (!$this->numLicenceExiste($identifiant, $repoLicencie)) {
+                    $this->addFlash('erreur', "Le numéro de licence fourni n'existe pas");
+                    return $this->redirectToRoute('accueil');
+                }
             } else {
                 $this->addFlash('erreur', "L'identifiant n'est pas correct");
                 return $this->render('vues/ChoixRegister/register.html.twig', [
-                    'registrationForm' => $form->createView(),
-                    ]);
+                            'registrationForm' => $form->createView(),
+                ]);
             }
-            if ($this->compteExiste($identifiant)) {
-                return $this->redirectToRoute('app_login');
-            } elseif (!$this->numLicenceExiste($identifiant)) {
-                $this->addFlash('erreur', "Le numéro de licence fourni n'existe pas");
-                return $this->redirectToRoute('accueil');
-            } else {
-                $user->setRoles($role);
-                $user->setPassword(
-                        $userPasswordEncoder->encodePassword(
-                                $user,
-                                $password
-                ));
-                $entityManager->persist($compte);
-                $entityManager->flush();
-                $this->addFlash('message', "Compte inscrit crée !");
-                return $this->redirectToRoute('app_login');
-            }
+            $compte->setRoles($role);
+            $compte->setPassword(
+                    $userPasswordEncoder->encodePassword(
+                            $compte,
+                            $password
+            ));
+            $entityManager->persist($compte);
+            $entityManager->flush();
+            $this->addFlash('message', "Compte inscrit crée !");
+            return $this->redirectToRoute('app_login');
         }
         return $this->render('vues/ChoixRegister/register.html.twig', [
                     'registrationForm' => $form->createView(),
@@ -69,13 +70,13 @@ class RegistrationController extends AbstractController {
         }
     }
 
-    public function compteExiste(int $identifiant, CompteRepository $repo) {
-        $compte = $repo->find($identifiant);
-        if ($compte) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
+//    public function compteExiste(string $identifiant, CompteRepository $repo) {
+//        $compte = $repo->find($identifiant);
+//        if ($compte) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//
 }

@@ -204,6 +204,12 @@
     "sebastian/version": {
         "version": "3.0.2"
     },
+    "sendgrid/php-http-client": {
+        "version": "3.14.4"
+    },
+    "sendgrid/sendgrid": {
+        "version": "7.11.5"
+    },
     "sensio/framework-extra-bundle": {
         "version": "5.6",
         "recipe": {
@@ -215,6 +221,9 @@
         "files": [
             "config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "starkbank/ecdsa": {
+        "version": "0.0.5"
     },
     "symfony/apache-pack": {
         "version": "1.0",
@@ -494,6 +503,15 @@
     },
     "symfony/security-http": {
         "version": "v4.4.37"
+    },
+    "symfony/sendgrid-mailer": {
+        "version": "4.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "4.4",
+            "ref": "b46e4f8f1adb2864f0aa9c0ff57aea3324a07199"
+        }
     },
     "symfony/serializer": {
         "version": "v4.4.39"
