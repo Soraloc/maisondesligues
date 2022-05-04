@@ -27,12 +27,9 @@ class InscriptionCongreController extends AbstractController
     public function inscriptionCongre(Security $security, LicencieRepository $repoLicencie): Response
     {
        $numlicence = $this->security->getUser()->getUsername();
-       $id = $this->security->getUser()->getId();
-       
-       $licencie = $repoLicencie->findBy(array('numlicence' => $numlicence));
+       $licencie = $repoLicencie->findOneByNumLicence($numlicence);
        
        return $this->render('vues/inscriptionCongre.html.twig', [
-           'id' => $id,
            'numlicence' => $numlicence,
            'licencie' => $licencie
            ]);
