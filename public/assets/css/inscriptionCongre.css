@@ -11,3 +11,13 @@ td {
 thead{
     text-align: center;
 }
+
+.sizeic{
+    width: 980px;
+}
+
+#inscrit{
+    width: 92px;
+    background-color: #9da0df;
+    color: black;
+}

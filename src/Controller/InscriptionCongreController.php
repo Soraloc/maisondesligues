@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\LicencieRepository;
+use App\Repository\AtelierRepository;
 /**
  * Description of ListeAteliersController
  *
@@ -24,12 +25,14 @@ class InscriptionCongreController extends AbstractController
     /**
      * @Route("/inscriptionCongre", name="inscriptionCongre")
      */
-    public function inscriptionCongre(Security $security, LicencieRepository $repoLicencie): Response
+    public function inscriptionCongre(Security $security, LicencieRepository $repoLicencie, AtelierRepository $repoAtelier): Response
     {
        $numlicence = $this->security->getUser()->getUsername();
        $licencie = $repoLicencie->findOneByNumLicence($numlicence);
+       $ateliers = $repoAtelier->findAll();
        
        return $this->render('vues/inscriptionCongre.html.twig', [
+           'ateliers' => $ateliers,
            'numlicence' => $numlicence,
            'licencie' => $licencie
            ]);

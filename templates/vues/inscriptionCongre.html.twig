@@ -1,6 +1,40 @@
 {% extends "core.html.twig" %}
 {% block content %}
+
     <h2>Inscription au congrès</h2>
     <p>Numéro de licence : {{ numlicence }}</p>
-    <p>Nom : {{ licencie.nom }}</p>
+    <p>Nom et prénom : {{ licencie.nom }} {{ licencie.prenom }}</p>
+    <p>Email : <input type="texte" value="{{ licencie.mail }}"></p>
+    <p>Téléphone : {{ licencie.tel }}</p>
+    <p>Ville : {{ licencie.cp }} {{ licencie.ville }}</p>
+    <p>Adresse 1 : {{ licencie.adresse1 }}</p>
+    <p>Adresse 2 : {{ licencie.adresse2 }}</p>
+    <br>
+
+    <h2>Liste des ateliers disponibles :</h2>
+    {% for atelier in ateliers %}
+        <div class="jumbotron sizeic">
+            <h1 class="display-4">{{ atelier.libelle }}</h1>
+            <p class="lead">Thème(s) :
+                {% for theme in atelier.lesThemes %}
+                    {{ theme.libelle }}
+                {% endfor %}
+            </p>
+            <hr class="my-4">
+            <p>Nombre de place(s) : {{ atelier.nbplacesmaxi }}</p>
+            <p>Début :
+                {% for vacation in atelier.lesVacations %}
+                    {{ vacation.dateHeureDebut|date('d/m/Y') }}
+                    Fin :
+                    {{ vacation.dateHeureFin |date('d/m/Y') }}
+                {% endfor %}
+            </p>
+            <div class="form-check" id="inscrit">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">S'inscrire</label>
+            </div>
+        </div>
+    {% endfor %}
+    
+     <button type="button" class="btn btn-success">Validation</button>
 {% endblock %}
