@@ -2,3 +2,35 @@
     background-color: #727074;
     color: white;
 }
+
+.blockEncadreH{
+    background-color: #2a67ab;
+    border: 1px solid #000000;
+    color: white;
+    font-weight: bold;
+    font-family: math;
+}
+
+.blockEncadreA{
+    background-color: #4f657e;
+    border: 1px solid #000000;
+    color: white;
+    font-weight: bold;
+    font-family: math;
+}
+
+.clearfix {
+clear: both;
+}
+
+.red{
+    color: red;
+}
+
+.yellow{
+    color: yellow;
+}
+
+.green{
+    color: #29c729;
+}

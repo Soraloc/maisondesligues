@@ -1,11 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark ColorBGnavbar">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ path('accueil') }}">
+        <a class="navbar-brand" href="/">
             <div class="logo-image">
                 <img src="{{asset('assets/images/logoMLD-removebg.png')}}" class="img-fluid imgNav">
             </div>
         </a>
-        <a class="navbar-brand" href="{{ path('accueil') }}">Accueil</a>
+        <a class="navbar-brand" href="/accueil">Accueil</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -16,17 +16,31 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{ path('app_login') }}">Se connecter</a>
                         <a class="dropdown-item" href="{{ path('app_register') }}">S'enregistrer</a>
+                        {% if app.user %}
+                        <a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>
+                        {% endif %}
                     </div>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="{{ path('creer_choix') }}">Créer</a>
+                {% if app.user %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="/creer/choix">Créer</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="{{ path('modifier_selectionatelier') }}">Modifier</a>
-                </li>
+                {% endif %}
+                {% if app.user %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/inscriptionCongre">Inscription Congrès</a>
+                    </li>
+                {% endif %}
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item navbar-nav me-auto active"><a class="nav-link">Connecté(e) en tant que :</a></li>
+                {% if app.user %}
+                    <li class="nav-item navbar-nav me-auto active"><a class="nav-link">Connecté(e) en tant que :</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item navbar-nav me-auto active"><a class="nav-link">Admin</a></li>
+                        {% elseif is_granted('ROLE_USER') %}
+                        <li class="nav-item navbar-nav me-auto active"><a class="nav-link">Utilisateur</a></li>
+                        {% endif %}
+                    {% endif %}
             </ul>
         </div>
     </div>

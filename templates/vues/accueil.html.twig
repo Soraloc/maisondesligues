@@ -13,10 +13,58 @@
             financée par le Conseil Régional de Lorraine dont l'administration est déléguée au Comité Régional 
             Olympique et Sportif de Lorraine (CROSL).
         </p>
-
-        <p>
+        <p class="red">
             Le Congrès sera organisé le : Samedi 17 et le Dimanche 18 septembre 2022.
         </p>
-    </center>
 
+        <ul>
+            <h5> Hotels à proximité :</h5>
+            {% for hotel in hotels %}
+                <div class="d-inline-flex p-2 blockEncadreH">
+                    {{ hotel.pnom }}<br>
+                    <th>-----------------</th><br>
+                    {{ hotel.adresse1 }}<br>
+                    {{ hotel.cp }}<br>
+                    {{ hotel.ville }}<br>
+                    {{ hotel.tel }}<br>
+                    {{ hotel.mail }}<br>
+                    Single | Double<br>
+                    {% for tarif in hotel.leTarifNuitee %}
+                        [{{ tarif.tarifNuitee }}€]
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </ul>
+
+        <p>
+            Tarif repas accompagnant 30€ le repas
+        </p>
+        <p>
+            Possibilités : samedi midi - samedi soir – dimanche midi
+        </p>
+
+        <h5> Ateliers disponible :</h5>
+        <div class="d-flex blockEncadreA">
+            <div class="p-2 info">
+                Libelle :<br>
+                Nombre de places :<br>
+                Theme :<br>
+                Début :<br>
+                fin :
+            </div>
+            {% for atelier in ateliers %}
+                <div class="p-2">
+                    {{ atelier.libelle }}<br>
+                    {{ atelier.nbplacesmaxi }}<br>
+                    {% for theme in atelier.lesThemes %}
+                        {{ theme.libelle }}<br>
+                    {% endfor %}
+                    {% for vacation in atelier.lesVacations %}
+                        {{ vacation.dateHeureDebut|date('d-m-Y') }}<br>
+                        {{ vacation.dateHeureFin |date('d-m-Y') }}<br>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div> 
+    </center>
 {% endblock %}
