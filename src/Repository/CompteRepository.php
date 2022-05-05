@@ -62,6 +62,16 @@ class CompteRepository extends ServiceEntityRepository implements PasswordUpgrad
         $this->_em->flush();
     }
 
+    public function findOneByUsername($value): ?Licencie
+    {
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.identifiant = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+    
     // /**
     //  * @return Compte[] Returns an array of Compte objects
     //  */

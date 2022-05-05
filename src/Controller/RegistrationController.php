@@ -57,7 +57,7 @@ class RegistrationController extends AbstractController {
             ));
             $entityManager->persist($compte);
             $entityManager->flush();
-            $this->addFlash('message', "Compte inscrit crée !");
+            $this->addFlash('message', "Compte créé !");
             return $this->redirectToRoute('app_login');
         }
         return $this->render('vues/ChoixRegister/register.html.twig', [
@@ -66,15 +66,15 @@ class RegistrationController extends AbstractController {
     }
 
     /**
-     * @Route("/verifmail/{id}", name="verifmail")
+     * @Route("/verifmail/{identifiant}", name="verifmail")
      */
-    public function verifMail($id, CompteRepository $repo) {
-        $compte = $repo->find($id);
+    public function verifMail($identifiant, CompteRepository $repo) {
+        $compte = $repo->findOneByUsername($identifiant);
         $compte->setMailValide();
     }
 
     public function numLicenceExiste(int $identifiant, LicencieRepository $repo) {
-        $licencie = $repo->find($identifiant);
+        $licencie = $repo->findOneByNumLicence($identifiant);
         if ($licencie) {
             return true;
         } else {
@@ -84,7 +84,7 @@ class RegistrationController extends AbstractController {
 
     public function sendMailValid(string $identifiant, MailerInterface $mailer, LicencieRepository $repo) {
         if (!filter_var($identifiant, FILTER_VALIDATE_EMAIL)) {
-            $licencie = $repo->find($identifiant);
+            $licencie = $repo->findOneByNumLicence($identifiant);
             $emailAEnvoyer = $licencie->getMail();
             $email = (new Email())
                 ->from('garambois.lucas@gmail.com')

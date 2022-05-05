@@ -45,6 +45,16 @@ class LicencieRepository extends ServiceEntityRepository
         }
     }
 
+    public function findOneByNumLicence($value): ?Licencie
+    {
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.numLicence = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+    
     // /**
     //  * @return Licencie[] Returns an array of Licencie objects
     //  */
