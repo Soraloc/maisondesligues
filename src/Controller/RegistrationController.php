@@ -47,8 +47,9 @@ class RegistrationController extends AbstractController {
                             'registrationForm' => $form->createView(),
                 ]);
             }
-            $this->sendMailValid($identifiant, $mailer);
+            $this->sendMailValid((string) $identifiant, $mailer, $repoLicencie);
             $compte->setRoles($role);
+            $compte->setMailValide(false);
             $compte->setPassword(
                     $userPasswordEncoder->encodePassword(
                             $compte,
@@ -63,12 +64,13 @@ class RegistrationController extends AbstractController {
                     'registrationForm' => $form->createView(),
         ]);
     }
-    
-     /**
-     * @Route("/verifmail/{id}", name="app_register")
+
+    /**
+     * @Route("/verifmail/{id}", name="verifmail")
      */
-    public function verifMail($id){
-        
+    public function verifMail($id, CompteRepository $repo) {
+        $compte = $repo->find($id);
+        $compte->setMailValide();
     }
 
     public function numLicenceExiste(int $identifiant, LicencieRepository $repo) {
@@ -79,23 +81,26 @@ class RegistrationController extends AbstractController {
             return false;
         }
     }
-    
-    public function sendMailValid(int $identifiant, MailerInterface $mailer){
-        $email = (new Email())
-            ->from('garambois.lucas@gmail.com')
-            ->to('garambois.lucas@gmail.com')
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
-            ->subject('Confirmation du mail')
-            ->text('Email send')
-            ->html('<p>Veuillez cliquez sur le lien suivant pour valider votre inscription</p> <br> <a href="http://maison-des-ligues/verifmail/' . $identifiant . '">Verif Mail</a>');
+
+    public function sendMailValid(string $identifiant, MailerInterface $mailer, LicencieRepository $repo) {
+        if (!filter_var($identifiant, FILTER_VALIDATE_EMAIL)) {
+            $licencie = $repo->find($identifiant);
+            $emailAEnvoyer = $licencie->getMail();
+            $email = (new Email())
+                ->from('garambois.lucas@gmail.com')
+                ->to('garambois.lucas@gmail.com')
+                //->cc('cc@example.com')
+                //->bcc('bcc@example.com')
+                //->replyTo('fabien@example.com')
+                //->priority(Email::PRIORITY_HIGH)
+                ->subject('Confirmation du mail')
+                ->text('Email send')
+                ->html('<p>Email a envoyer: '. $emailAEnvoyer .'</p> <br> '
+                        . '<p>Veuillez cliquez sur le lien suivant pour valider votre inscription</p> <br> '
+                        . '<a href="http://maison-des-ligues/verifmail/' . $identifiant . '">Verif Mail</a>');
 
         $mailer->send($email);
-        return new Response(
-          'Email was sent'
-       );
+        }
     }
 
 //    public function compteExiste(string $identifiant, CompteRepository $repo) {

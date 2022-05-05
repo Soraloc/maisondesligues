@@ -118,10 +118,10 @@ class Compte implements UserInterface
         return $this->mailValide;
     }
 
-    public function setMailValide(): self
+    public function setMailValide($mailValide): self
     {
-        $this->mailValide = true;
-
+        $this->mailValide = $mailValide;
+        
         return $this;
     }
 }
