@@ -31,12 +31,12 @@ class RegistrationController extends AbstractController {
             $password = $form->get('password')->getData();
             $identifiant = $form->get('identifiant')->getData();
             if (filter_var($identifiant, FILTER_VALIDATE_EMAIL)) {
-                $role = array("ROLE_VISITEUR");
+                $role = array("ROLE_USER");
 //                if ($this->compteExiste($identifiant, $repoCompte)) {
 //                    return $this->redirectToRoute('app_login');
 //                }
             } elseif (filter_var($identifiant, FILTER_VALIDATE_INT)) {
-                $role = array("ROLE_LICENCIE");
+                $role = array("ROLE_INSCRIT");
                 if (!$this->numLicenceExiste($identifiant, $repoLicencie)) {
                     $this->addFlash('erreur', "Le numéro de licence fourni n'existe pas");
                     return $this->redirectToRoute('accueil');
