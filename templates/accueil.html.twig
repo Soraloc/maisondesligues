@@ -15,7 +15,7 @@
             </div>
         {% endfor %}
         <p class="red">
-            Le Congrès sera organisé le : Samedi 17 et le Dimanche 18 septembre 2022.
+            Le congrès sera organisé le : Samedi 17 et le Dimanche 18 septembre 2022.
         </p>
         <ul>
             <hr class="mt-4 mb-5 w-25">
@@ -45,28 +45,34 @@
         </p>
 
         <hr class="mt-4 mb-5 w-25">
-        <h5> Ateliers disponibles :</h5>
-        <div class="d-flex blockEncadreA">
-            <div class="p-2 info">
-                Libelle :<br>
-                Nombre de places :<br>
-                Theme :<br>
-                Début :<br>
-                fin :
-            </div>
-            {% for atelier in ateliers %}
-                <div class="p-2">
-                    {{ atelier.libelle }}<br>
-                    {{ atelier.nbplacesmaxi }}<br>
+        <h5 class="mb-4"> Ateliers disponibles :</h5>
+        <hr class="col-1 mt-4 mb-5">
+        {% for atelier in ateliers %}
+            <div class="jumbotron sizeic">
+                <h1>{{ atelier.libelle }}</h1>
+                <p class="lead">Thème(s) :
                     {% for theme in atelier.lesThemes %}
-                        {{ theme.libelle }}<br>
+                        {{ theme.libelle }}
+                        -
                     {% endfor %}
+                </p>
+                <hr class="my-4">
+                <p>Nombre de place(s) : {{ atelier.nbplacesmaxi }}</p>
+                {% if atelier.lesVacations|length > 0 %}
+                <hr class="col-1 mt-3 mb-4">
+                <p>Vacations -</p>
                     {% for vacation in atelier.lesVacations %}
-                        {{ vacation.dateHeureDebut|date('d-m-Y') }}<br>
-                        {{ vacation.dateHeureFin |date('d-m-Y') }}<br>
+                        <p>
+                        Début :
+                        {{ vacation.dateHeureDebut|date('d/m/Y H:i:s') }}
+                         - 
+                        Fin :
+                        {{ vacation.dateHeureFin |date('d/m/Y H:i:s') }}
+                        </p>
                     {% endfor %}
-                </div>
-            {% endfor %}
-        </div> 
+                {% endif %}
+            </div>
+            <hr class="col-1 mt-5 mb-5">
+        {% endfor %}
     </center>
 {% endblock %}
