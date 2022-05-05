@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class RegistrationController extends AbstractController {
 
@@ -20,7 +22,7 @@ class RegistrationController extends AbstractController {
      * @Route("/register", name="app_register")
      */
     public function register(Request $request, UserPasswordEncoderInterface $userPasswordEncoder,
-            EntityManagerInterface $entityManager, LicencieRepository $repoLicencie, CompteRepository $repoCompte): Response {
+            EntityManagerInterface $entityManager, LicencieRepository $repoLicencie, CompteRepository $repoCompte, MailerInterface $mailer): Response {
         $compte = new Compte();
         $role = array();
         $form = $this->createForm(RegistrationFormType::class, $compte);
@@ -45,6 +47,7 @@ class RegistrationController extends AbstractController {
                             'registrationForm' => $form->createView(),
                 ]);
             }
+            $this->sendMailValid($identifiant, $mailer);
             $compte->setRoles($role);
             $compte->setPassword(
                     $userPasswordEncoder->encodePassword(
@@ -60,6 +63,13 @@ class RegistrationController extends AbstractController {
                     'registrationForm' => $form->createView(),
         ]);
     }
+    
+     /**
+     * @Route("/verifmail/{id}", name="app_register")
+     */
+    public function verifMail($id){
+        
+    }
 
     public function numLicenceExiste(int $identifiant, LicencieRepository $repo) {
         $licencie = $repo->find($identifiant);
@@ -68,6 +78,24 @@ class RegistrationController extends AbstractController {
         } else {
             return false;
         }
+    }
+    
+    public function sendMailValid(int $identifiant, MailerInterface $mailer){
+        $email = (new Email())
+            ->from('garambois.lucas@gmail.com')
+            ->to('garambois.lucas@gmail.com')
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('Confirmation du mail')
+            ->text('Email send')
+            ->html('<p>Veuillez cliquez sur le lien suivant pour valider votre inscription</p> <br> <a href="http://maison-des-ligues/verifmail/' . $identifiant . '">Verif Mail</a>');
+
+        $mailer->send($email);
+        return new Response(
+          'Email was sent'
+       );
     }
 
 //    public function compteExiste(string $identifiant, CompteRepository $repo) {

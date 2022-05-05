@@ -36,6 +36,11 @@ class Compte implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $mailValide;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,5 +111,17 @@ class Compte implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getMailValide(): ?bool
+    {
+        return $this->mailValide;
+    }
+
+    public function setMailValide(): self
+    {
+        $this->mailValide = true;
+
+        return $this;
     }
 }
