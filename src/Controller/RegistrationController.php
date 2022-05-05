@@ -68,9 +68,13 @@ class RegistrationController extends AbstractController {
     /**
      * @Route("/verifmail/{identifiant}", name="verifmail")
      */
-    public function verifMail($identifiant, CompteRepository $repo) {
+    public function verifMail($identifiant, CompteRepository $repo, EntityManagerInterface $entityManager) {
         $compte = $repo->findOneByUsername($identifiant);
-        $compte->setMailValide();
+        $compte->setMailValide(true);
+        $entityManager->persist($compte);
+        $entityManager->flush();
+        $this->addFlash('message', "Email validé");
+        return $this->redirectToRoute('app_login');
     }
 
     public function numLicenceExiste(int $identifiant, LicencieRepository $repo) {
@@ -87,19 +91,18 @@ class RegistrationController extends AbstractController {
             $licencie = $repo->findOneByNumLicence($identifiant);
             $emailAEnvoyer = $licencie->getMail();
             $email = (new Email())
-                ->from('garambois.lucas@gmail.com')
-                ->to('garambois.lucas@gmail.com')
-                //->cc('cc@example.com')
-                //->bcc('bcc@example.com')
-                //->replyTo('fabien@example.com')
-                //->priority(Email::PRIORITY_HIGH)
-                ->subject('Confirmation du mail')
-                ->text('Email send')
-                ->html('<p>Email a envoyer: '. $emailAEnvoyer .'</p> <br> '
-                        . '<p>Veuillez cliquez sur le lien suivant pour valider votre inscription</p> <br> '
-                        . '<a href="http://maison-des-ligues/verifmail/' . $identifiant . '">Verif Mail</a>');
+                    ->from('garambois.lucas@gmail.com')
+                    ->to('garambois.lucas@gmail.com')
+                    ->cc($emailAEnvoyer)
+                    //->bcc('bcc@example.com')
+                    //->replyTo('fabien@example.com')
+                    //->priority(Email::PRIORITY_HIGH)
+                    ->subject('Confirmation du mail')
+                    ->text('Email send')
+                    ->html('<p>Veuillez cliquez sur le lien suivant pour valider votre inscription</p> <br> '
+                    . '<a href="http://maison-des-ligues/verifmail/' . $identifiant . '">Verif Mail</a>');
 
-        $mailer->send($email);
+            $mailer->send($email);
         }
     }
 

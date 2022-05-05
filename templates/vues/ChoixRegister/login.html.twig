@@ -13,6 +13,8 @@
             <input type="text" value="{{ last_username }}" name="identifiant" id="inputIdentifiant" class="form-control" autocomplete="username" required autofocus>
             <label for="inputPassword">Mot de passe:</label>
             <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+            <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublier</a>
+            <br>
 
             <input type="hidden" name="_csrf_token"
                    value="{{ csrf_token('authenticate') }}"

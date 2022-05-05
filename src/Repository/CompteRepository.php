@@ -62,7 +62,7 @@ class CompteRepository extends ServiceEntityRepository implements PasswordUpgrad
         $this->_em->flush();
     }
 
-    public function findOneByUsername($value): ?Licencie
+    public function findOneByUsername($value): ?Compte
     {
         return $this->createQueryBuilder('l')
             ->andWhere('l.identifiant = :val')

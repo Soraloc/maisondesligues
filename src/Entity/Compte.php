@@ -37,7 +37,7 @@ class Compte implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="boolean", options={"default" : false})
+     * @ORM\Column(type="boolean")
      */
     private $mailValide;
 
