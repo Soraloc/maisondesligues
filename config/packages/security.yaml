@@ -36,3 +36,5 @@ security:
     access_control:
         - { path: ^/creer, roles: ROLE_USER }
         - { path: ^/creer, roles: ROLE_ADMIN }
+        - { path: ^/modifier, roles: ROLE_USER }
+        - { path: ^/modifier, roles: ROLE_ADMIN }

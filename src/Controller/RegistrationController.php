@@ -43,7 +43,7 @@ class RegistrationController extends AbstractController {
                 }
             } else {
                 $this->addFlash('erreur', "L'identifiant n'est pas correct");
-                return $this->render('vues/ChoixRegister/register.html.twig', [
+                return $this->render('authentification/register.html.twig', [
                             'registrationForm' => $form->createView(),
                 ]);
             }
@@ -60,7 +60,7 @@ class RegistrationController extends AbstractController {
             $this->addFlash('message', "Compte créé !");
             return $this->redirectToRoute('app_login');
         }
-        return $this->render('vues/ChoixRegister/register.html.twig', [
+        return $this->render('authentification/register.html.twig', [
                     'registrationForm' => $form->createView(),
         ]);
     }

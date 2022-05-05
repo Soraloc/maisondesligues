@@ -1,24 +1,25 @@
 {% extends "core.html.twig" %}
 {% block content %}
-    {% for message in app.flashes('erreur') %}
-        <div class="alert alert-danger mt-4 text-center" role="alert">
-            {{ message }}
-        </div>
-
-    {% endfor %}
     <center>
-        <p class="info">
-            La Maison des Ligues de Lorraine (MDL) a pour mission de fournir des espaces et des services aux 
-            différentes ligues sportives régionales et à d’autres structures hébergées. La MDL est une structure 
-            financée par le Conseil Régional de Lorraine dont l'administration est déléguée au Comité Régional 
-            Olympique et Sportif de Lorraine (CROSL).
-        </p>
+        <div class="info">
+            <p class="col-7">
+                La Maison des Ligues de Lorraine (MDL) a pour mission de fournir des espaces et des services aux 
+                différentes ligues sportives régionales et à d’autres structures hébergées. La MDL est une structure 
+                financée par le Conseil Régional de Lorraine dont l'administration est déléguée au Comité Régional 
+                Olympique et Sportif de Lorraine (CROSL).
+            </p>
+        </div>
+        {% for message in app.flashes('erreur') %}
+            <div class="alert alert-danger mt-4 text-center" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
         <p class="red">
             Le Congrès sera organisé le : Samedi 17 et le Dimanche 18 septembre 2022.
         </p>
-
         <ul>
-            <h5> Hotels à proximité :</h5>
+            <hr class="mt-4 mb-5 w-25">
+            <h5> Hôtels à proximité :</h5>
             {% for hotel in hotels %}
                 <div class="d-inline-flex p-2 blockEncadreH">
                     {{ hotel.pnom }}<br>
@@ -37,13 +38,14 @@
         </ul>
 
         <p>
-            Tarif repas accompagnant 30€ le repas
+            Tarif repas accompagnant : 30€ le repas
         </p>
         <p>
-            Possibilités : samedi midi - samedi soir – dimanche midi
+            Possibilités : Samedi midi - Samedi soir - Dimanche midi
         </p>
 
-        <h5> Ateliers disponible :</h5>
+        <hr class="mt-4 mb-5 w-25">
+        <h5> Ateliers disponibles :</h5>
         <div class="d-flex blockEncadreA">
             <div class="p-2 info">
                 Libelle :<br>

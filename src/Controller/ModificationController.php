@@ -30,7 +30,7 @@ class ModificationController extends AbstractController
                 $lesAteliers[] = $vacation->getAtelier();
             }
         }
-        return $this->render('vues/modification/selectionAtelier.html.twig', [
+        return $this->render('modification/selectionAtelier.html.twig', [
             'ateliers' => $lesAteliers,
         ]);
     }
@@ -43,7 +43,7 @@ class ModificationController extends AbstractController
         $idAtelier = $request->query->get('id');
         $atelier = $repo->find($idAtelier);
         $lesVacations = $atelier->getLesVacations();
-        return $this->render('vues/modification/selectionVacation.html.twig', [
+        return $this->render('modification/selectionVacation.html.twig', [
             'atelier' => $atelier,
             'vacations' => $lesVacations,
         ]);
@@ -71,7 +71,7 @@ class ModificationController extends AbstractController
         } catch (Exception $ex) {
             $this->addFlash('erreur', $ex->getMessage());
         }
-        return $this->render('vues/modification/modificationVacation.html.twig', [
+        return $this->render('modification/modificationVacation.html.twig', [
             'idatelier' => $atelier->getId(),
             'vacationForm' => $form->createView(),
         ]);

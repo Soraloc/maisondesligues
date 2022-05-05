@@ -60,7 +60,7 @@ class CreationController extends AbstractController
                 return $this->redirectToRoute('creer_vacation');
             }
         }
-        return $this->render('vues/creation/choixCreation.html.twig', [
+        return $this->render('creation/choixCreation.html.twig', [
             'choixCreationForm' => $form->createView(),
         ]);
     }
@@ -81,7 +81,7 @@ class CreationController extends AbstractController
             $this->addFlash('confirmation', "L'atelier a bien été créé !");
             return $this->redirectToRoute('creer_choix');
         }
-        return $this->render('vues/creation/creerAtelier.html.twig', [
+        return $this->render('creation/creerAtelier.html.twig', [
             'themes' => $themes,
             'atelierForm' => $form->createView(),
         ]);
@@ -102,7 +102,7 @@ class CreationController extends AbstractController
             $this->addFlash('confirmation', 'Le thème a bien été créé !');
             return $this->redirectToRoute('creer_choix');
         }
-        return $this->render('vues/creation/creerTheme.html.twig', [
+        return $this->render('creation/creerTheme.html.twig', [
             'themeForm' => $form->createView(),
         ]);
     }
@@ -127,7 +127,7 @@ class CreationController extends AbstractController
         } catch (Exception $ex) {
             $this->addFlash('erreur', $ex->getMessage());
         }
-        return $this->render('vues/creation/creerVacation.html.twig', [
+        return $this->render('creation/creerVacation.html.twig', [
             'ateliers' => $ateliers,
             'vacationForm' => $form->createView(),
         ]);

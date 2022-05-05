@@ -18,7 +18,7 @@ class AccueilController extends AbstractController
     {
         $hotels = $repoHotel->findAll();
         $ateliers = $repoAtelier->findAll();
-        return $this->render('vues/accueil.html.twig', [
+        return $this->render('accueil.html.twig', [
             'hotels' => $hotels,
             'ateliers' => $ateliers
         ]);

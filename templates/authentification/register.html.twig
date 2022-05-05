@@ -1,0 +1,27 @@
+{% extends 'core.html.twig' %}
+{% block content %}
+    {% for message in app.flashes('erreur') %}
+        <div class="alert alert-danger mt-4 text-center" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('message') %}
+        <div class="alert alert-info mt-4 text-center" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <h1 class="h3 mb-5 mt-5 text-center">S'enregistrer sur le site Maison des Ligues</h1>
+    {{ form_start(registrationForm) }}
+    <div class="container col-5">
+        {{ form_row(registrationForm.identifiant, {label: 'Identifiant *'}) }}
+        {{ form_row(registrationForm.password) }}
+        {{ form_errors(registrationForm) }}
+        <button class="btn btn-lg btn-primary" type="submit">S'enregistrer</button>
+        <a href="/" class="btn btn-lg btn-secondary"> Retour </a>
+        {{ form_end(registrationForm) }}
+        <div class="row col-10 mt-5">
+            <p class="font-italic font-weight-lighter"> * L'identifiant peut être soit une adresse mail pour s'enregistrer en tant 
+                qu'utilisateur, soit un numéro de licence pour s'enregistrer en tant que licencié. </p>
+        </div>
+    </div>
+{% endblock %}

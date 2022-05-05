@@ -14,22 +14,23 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Connexion</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ path('app_login') }}">Se connecter</a>
-                        <a class="dropdown-item" href="{{ path('app_register') }}">S'enregistrer</a>
-                        {% if app.user %}
-                        <a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>
+                        {% if not app.user %}
+                            <a class="dropdown-item" href="{{ path('app_login') }}">Se connecter</a>
+                            <a class="dropdown-item" href="{{ path('app_register') }}">S'enregistrer</a>
+                        {% elseif app.user %}
+                            <a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>
                         {% endif %}
                     </div>
                 </li>
                 {% if app.user %}
-                <li class="nav-item active">
-                    <a class="nav-link" href="/creer/choix">Créer</a>
-                </li>
-                {% endif %}
-                {% if app.user %}
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/inscriptionCongre">Inscription Congrès</a>
-                    </li>
+                    {% if is_granted('ROLE_USER') %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/creer/choix">Créer</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/modifier/selectionatelier">Modifier</a>
+                        </li>
+                    {% endif %}
                 {% endif %}
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -39,6 +40,8 @@
                         <li class="nav-item navbar-nav me-auto active"><a class="nav-link">Admin</a></li>
                         {% elseif is_granted('ROLE_USER') %}
                         <li class="nav-item navbar-nav me-auto active"><a class="nav-link">Utilisateur</a></li>
+                        {% elseif is_granted('ROLE_INSCRIT') %}
+                        <li class="nav-item navbar-nav me-auto active"><a class="nav-link">Licencié</a></li>
                         {% endif %}
                     {% endif %}
             </ul>
