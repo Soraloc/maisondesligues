@@ -34,6 +34,12 @@ class ModificationController extends AbstractController
             'ateliers' => $lesAteliers,
         ]);
     }
+    /**
+     * @Route("/ecrireJournal", name="ecrireJournal")
+     */
+    public function ecrireJournal():Response{
+        return new Response('toto'); 
+    } 
     
     /**
      * @Route("/selectionvacation", name="_selectionvacation")

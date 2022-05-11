@@ -61,6 +61,11 @@ class Hotel
      */
     private $leTarifNuitee;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true, name="isValid")
+     */
+    private $isValid;
+    
     public function __construct()
     {
         $this->leTarifNuitee = new ArrayCollection();
@@ -155,6 +160,18 @@ class Hotel
         return $this;
     }
 
+    public function getIsValid(): ?bool
+    {
+        return $this->isValid;
+    }
+
+    public function setIsValid(string $isValid): self
+    {
+        $this->isValid = $isValid;
+
+        return $this;
+    }
+    
     /**
      * @return Collection<int, Proposer>
      */
