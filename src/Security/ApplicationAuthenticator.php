@@ -3,7 +3,6 @@
 namespace App\Security;
 
 use App\Entity\Compte;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -19,6 +18,8 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use App\Controller\SecurityController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ApplicationAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
 {
@@ -91,10 +92,11 @@ class ApplicationAuthenticator extends AbstractFormLoginAuthenticator implements
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+       $this->log($authenticationUtils, $entityManager);
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
-
+        
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
         return new RedirectResponse($this->urlGenerator->generate('accueil'));
     }
@@ -102,5 +104,34 @@ class ApplicationAuthenticator extends AbstractFormLoginAuthenticator implements
     protected function getLoginUrl()
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+    }
+    
+    private function log(AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager): Response
+    {
+        $log = new Log();
+         // récupere le message d'erreur si il y en a un
+        $codeErreur = $authenticationUtils->getLastAuthenticationError();
+        // récupere l'identifiant rentré
+        $lastUsername = $authenticationUtils->getLastUsername();
+        if($codeErreur){
+            $connexionRouE = false;
+        } else {
+            $connexionRouE = true;
+            $codeErreur = "0";
+        }
+        $dateConnexion = new DateTime();
+        $adresseIP = $_SERVER['REMOTE_ADDR'];
+        
+        $log->setLogin($lastUsername);
+        $log->setNumLicence($lastUsername);
+        $log->setDateConnexion($dateConnexion);
+        $log->setAdresseIP($adresseIP);
+        $log->setConnexionRouE($connexionRouE);
+        $log->setCodeErreur($codeErreur);
+        $entityManager->persist($log);
+        $entityManager->flush();
+        
+        $this->addFlash('message', "Log créé");
+        return $this->render('vues/ChoixRegister/login.html.twig', ['last_username' => $lastUsername, 'error' => $codeErreur]);
     }
 }

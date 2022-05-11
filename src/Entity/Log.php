@@ -23,7 +23,7 @@ class Log
     private $login;
 
     /**
-     * @ORM\Column(type="integer", name="numlicence")
+     * @ORM\Column(type="string", name="numlicence")
      */
     private $numLicence;
 

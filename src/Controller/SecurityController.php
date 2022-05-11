@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Doctrine\ORM\EntityManagerInterface;
+use \DateTime;
 
 class SecurityController extends AbstractController
 {
@@ -36,9 +37,7 @@ class SecurityController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
     
-    /**
-     * @Route("/log", name="app_log")
-     */
+    
     public function log(AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager): Response
     {
         $log = new Log();
@@ -50,8 +49,9 @@ class SecurityController extends AbstractController
             $connexionRouE = false;
         } else {
             $connexionRouE = true;
+            $codeErreur = "0";
         }
-        $dateConnexion = date("Y-m-d H:i:s");
+        $dateConnexion = new DateTime();
         $adresseIP = $_SERVER['REMOTE_ADDR'];
         
         $log->setLogin($lastUsername);
